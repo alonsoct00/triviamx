@@ -1,0 +1,13 @@
+{
+  "name": "Trivia Master MX",
+  "short_name": "Trivia MX",
+  "description": "Herramienta mobile-first para moderadores de trivia.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "/favicon.ico", "sizes": "48x48", "type": "image/x-icon" }
+  ]
+}
