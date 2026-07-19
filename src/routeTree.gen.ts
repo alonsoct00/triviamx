@@ -9,38 +9,208 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SincronizarRouteImport } from './routes/sincronizar'
+import { Route as IaRouteImport } from './routes/ia'
+import { Route as HistorialRouteImport } from './routes/historial'
+import { Route as EstadisticasRouteImport } from './routes/estadisticas'
+import { Route as BancoRouteImport } from './routes/banco'
+import { Route as AjustesRouteImport } from './routes/ajustes'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PartidaNuevaRouteImport } from './routes/partida.nueva'
+import { Route as PartidaJugarRouteImport } from './routes/partida.jugar'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SincronizarRoute = SincronizarRouteImport.update({
+  id: '/sincronizar',
+  path: '/sincronizar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IaRoute = IaRouteImport.update({
+  id: '/ia',
+  path: '/ia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistorialRoute = HistorialRouteImport.update({
+  id: '/historial',
+  path: '/historial',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EstadisticasRoute = EstadisticasRouteImport.update({
+  id: '/estadisticas',
+  path: '/estadisticas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BancoRoute = BancoRouteImport.update({
+  id: '/banco',
+  path: '/banco',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AjustesRoute = AjustesRouteImport.update({
+  id: '/ajustes',
+  path: '/ajustes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartidaNuevaRoute = PartidaNuevaRouteImport.update({
+  id: '/partida/nueva',
+  path: '/partida/nueva',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartidaJugarRoute = PartidaJugarRouteImport.update({
+  id: '/partida/jugar',
+  path: '/partida/jugar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ajustes': typeof AjustesRoute
+  '/banco': typeof BancoRoute
+  '/estadisticas': typeof EstadisticasRoute
+  '/historial': typeof HistorialRoute
+  '/ia': typeof IaRoute
+  '/sincronizar': typeof SincronizarRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/partida/jugar': typeof PartidaJugarRoute
+  '/partida/nueva': typeof PartidaNuevaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ajustes': typeof AjustesRoute
+  '/banco': typeof BancoRoute
+  '/estadisticas': typeof EstadisticasRoute
+  '/historial': typeof HistorialRoute
+  '/ia': typeof IaRoute
+  '/sincronizar': typeof SincronizarRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/partida/jugar': typeof PartidaJugarRoute
+  '/partida/nueva': typeof PartidaNuevaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ajustes': typeof AjustesRoute
+  '/banco': typeof BancoRoute
+  '/estadisticas': typeof EstadisticasRoute
+  '/historial': typeof HistorialRoute
+  '/ia': typeof IaRoute
+  '/sincronizar': typeof SincronizarRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/partida/jugar': typeof PartidaJugarRoute
+  '/partida/nueva': typeof PartidaNuevaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/ajustes'
+    | '/banco'
+    | '/estadisticas'
+    | '/historial'
+    | '/ia'
+    | '/sincronizar'
+    | '/sitemap.xml'
+    | '/partida/jugar'
+    | '/partida/nueva'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/ajustes'
+    | '/banco'
+    | '/estadisticas'
+    | '/historial'
+    | '/ia'
+    | '/sincronizar'
+    | '/sitemap.xml'
+    | '/partida/jugar'
+    | '/partida/nueva'
+  id:
+    | '__root__'
+    | '/'
+    | '/ajustes'
+    | '/banco'
+    | '/estadisticas'
+    | '/historial'
+    | '/ia'
+    | '/sincronizar'
+    | '/sitemap.xml'
+    | '/partida/jugar'
+    | '/partida/nueva'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AjustesRoute: typeof AjustesRoute
+  BancoRoute: typeof BancoRoute
+  EstadisticasRoute: typeof EstadisticasRoute
+  HistorialRoute: typeof HistorialRoute
+  IaRoute: typeof IaRoute
+  SincronizarRoute: typeof SincronizarRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  PartidaJugarRoute: typeof PartidaJugarRoute
+  PartidaNuevaRoute: typeof PartidaNuevaRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sincronizar': {
+      id: '/sincronizar'
+      path: '/sincronizar'
+      fullPath: '/sincronizar'
+      preLoaderRoute: typeof SincronizarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ia': {
+      id: '/ia'
+      path: '/ia'
+      fullPath: '/ia'
+      preLoaderRoute: typeof IaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/historial': {
+      id: '/historial'
+      path: '/historial'
+      fullPath: '/historial'
+      preLoaderRoute: typeof HistorialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/estadisticas': {
+      id: '/estadisticas'
+      path: '/estadisticas'
+      fullPath: '/estadisticas'
+      preLoaderRoute: typeof EstadisticasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/banco': {
+      id: '/banco'
+      path: '/banco'
+      fullPath: '/banco'
+      preLoaderRoute: typeof BancoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ajustes': {
+      id: '/ajustes'
+      path: '/ajustes'
+      fullPath: '/ajustes'
+      preLoaderRoute: typeof AjustesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +218,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partida/nueva': {
+      id: '/partida/nueva'
+      path: '/partida/nueva'
+      fullPath: '/partida/nueva'
+      preLoaderRoute: typeof PartidaNuevaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partida/jugar': {
+      id: '/partida/jugar'
+      path: '/partida/jugar'
+      fullPath: '/partida/jugar'
+      preLoaderRoute: typeof PartidaJugarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AjustesRoute: AjustesRoute,
+  BancoRoute: BancoRoute,
+  EstadisticasRoute: EstadisticasRoute,
+  HistorialRoute: HistorialRoute,
+  IaRoute: IaRoute,
+  SincronizarRoute: SincronizarRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  PartidaJugarRoute: PartidaJugarRoute,
+  PartidaNuevaRoute: PartidaNuevaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
