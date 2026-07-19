@@ -14,7 +14,156 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      partida_preguntas: {
+        Row: {
+          created_at: string
+          id: string
+          orden: number
+          partida_id: string
+          pregunta_id: string
+          resultado: string | null
+          segundos_usados: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          orden: number
+          partida_id: string
+          pregunta_id: string
+          resultado?: string | null
+          segundos_usados?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          orden?: number
+          partida_id?: string
+          pregunta_id?: string
+          resultado?: string | null
+          segundos_usados?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partida_preguntas_partida_id_fkey"
+            columns: ["partida_id"]
+            isOneToOne: false
+            referencedRelation: "partidas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partida_preguntas_pregunta_id_fkey"
+            columns: ["pregunta_id"]
+            isOneToOne: false
+            referencedRelation: "preguntas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partidas: {
+        Row: {
+          cantidad: number
+          categoria: string | null
+          correctas: number
+          created_at: string
+          estado: string
+          id: string
+          incorrectas: number
+          nivel: string | null
+          nombre: string | null
+          tiempo_segundos: number
+          updated_at: string
+        }
+        Insert: {
+          cantidad?: number
+          categoria?: string | null
+          correctas?: number
+          created_at?: string
+          estado?: string
+          id?: string
+          incorrectas?: number
+          nivel?: string | null
+          nombre?: string | null
+          tiempo_segundos?: number
+          updated_at?: string
+        }
+        Update: {
+          cantidad?: number
+          categoria?: string | null
+          correctas?: number
+          created_at?: string
+          estado?: string
+          id?: string
+          incorrectas?: number
+          nivel?: string | null
+          nombre?: string | null
+          tiempo_segundos?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      preguntas: {
+        Row: {
+          categoria: string
+          created_at: string
+          explicacion: string | null
+          fecha_actualizacion: string
+          fuente: string | null
+          id: string
+          imagen: string | null
+          nivel: string
+          nivel_confianza: number
+          opciones: Json
+          origen: string
+          pregunta: string
+          respuesta: string
+          subcategoria: string | null
+          tags: string[]
+          tipo: string
+          updated_at: string
+          vigencia: string | null
+        }
+        Insert: {
+          categoria: string
+          created_at?: string
+          explicacion?: string | null
+          fecha_actualizacion?: string
+          fuente?: string | null
+          id?: string
+          imagen?: string | null
+          nivel: string
+          nivel_confianza?: number
+          opciones?: Json
+          origen?: string
+          pregunta: string
+          respuesta: string
+          subcategoria?: string | null
+          tags?: string[]
+          tipo?: string
+          updated_at?: string
+          vigencia?: string | null
+        }
+        Update: {
+          categoria?: string
+          created_at?: string
+          explicacion?: string | null
+          fecha_actualizacion?: string
+          fuente?: string | null
+          id?: string
+          imagen?: string | null
+          nivel?: string
+          nivel_confianza?: number
+          opciones?: Json
+          origen?: string
+          pregunta?: string
+          respuesta?: string
+          subcategoria?: string | null
+          tags?: string[]
+          tipo?: string
+          updated_at?: string
+          vigencia?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
