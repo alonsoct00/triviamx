@@ -13,6 +13,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as SalaCodigoRouteImport } from './routes/sala.$codigo'
 import { Route as AuthenticatedSincronizarRouteImport } from './routes/_authenticated/sincronizar'
 import { Route as AuthenticatedImportarRouteImport } from './routes/_authenticated/importar'
 import { Route as AuthenticatedIaRouteImport } from './routes/_authenticated/ia'
@@ -20,8 +21,11 @@ import { Route as AuthenticatedHistorialRouteImport } from './routes/_authentica
 import { Route as AuthenticatedEstadisticasRouteImport } from './routes/_authenticated/estadisticas'
 import { Route as AuthenticatedBancoRouteImport } from './routes/_authenticated/banco'
 import { Route as AuthenticatedAjustesRouteImport } from './routes/_authenticated/ajustes'
+import { Route as SalaCodigoJugarRouteImport } from './routes/sala.$codigo.jugar'
+import { Route as AuthenticatedSalaNuevaRouteImport } from './routes/_authenticated/sala.nueva'
 import { Route as AuthenticatedPartidaNuevaRouteImport } from './routes/_authenticated/partida.nueva'
 import { Route as AuthenticatedPartidaJugarRouteImport } from './routes/_authenticated/partida.jugar'
+import { Route as AuthenticatedSalaHostCodigoRouteImport } from './routes/_authenticated/sala.host.$codigo'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -41,6 +45,11 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const SalaCodigoRoute = SalaCodigoRouteImport.update({
+  id: '/sala/$codigo',
+  path: '/sala/$codigo',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedSincronizarRoute =
   AuthenticatedSincronizarRouteImport.update({
@@ -79,6 +88,16 @@ const AuthenticatedAjustesRoute = AuthenticatedAjustesRouteImport.update({
   path: '/ajustes',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const SalaCodigoJugarRoute = SalaCodigoJugarRouteImport.update({
+  id: '/jugar',
+  path: '/jugar',
+  getParentRoute: () => SalaCodigoRoute,
+} as any)
+const AuthenticatedSalaNuevaRoute = AuthenticatedSalaNuevaRouteImport.update({
+  id: '/sala/nueva',
+  path: '/sala/nueva',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPartidaNuevaRoute =
   AuthenticatedPartidaNuevaRouteImport.update({
     id: '/partida/nueva',
@@ -89,6 +108,12 @@ const AuthenticatedPartidaJugarRoute =
   AuthenticatedPartidaJugarRouteImport.update({
     id: '/partida/jugar',
     path: '/partida/jugar',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSalaHostCodigoRoute =
+  AuthenticatedSalaHostCodigoRouteImport.update({
+    id: '/sala/host/$codigo',
+    path: '/sala/host/$codigo',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
@@ -103,8 +128,12 @@ export interface FileRoutesByFullPath {
   '/ia': typeof AuthenticatedIaRoute
   '/importar': typeof AuthenticatedImportarRoute
   '/sincronizar': typeof AuthenticatedSincronizarRoute
+  '/sala/$codigo': typeof SalaCodigoRouteWithChildren
   '/partida/jugar': typeof AuthenticatedPartidaJugarRoute
   '/partida/nueva': typeof AuthenticatedPartidaNuevaRoute
+  '/sala/nueva': typeof AuthenticatedSalaNuevaRoute
+  '/sala/$codigo/jugar': typeof SalaCodigoJugarRoute
+  '/sala/host/$codigo': typeof AuthenticatedSalaHostCodigoRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
@@ -116,9 +145,13 @@ export interface FileRoutesByTo {
   '/ia': typeof AuthenticatedIaRoute
   '/importar': typeof AuthenticatedImportarRoute
   '/sincronizar': typeof AuthenticatedSincronizarRoute
+  '/sala/$codigo': typeof SalaCodigoRouteWithChildren
   '/': typeof AuthenticatedIndexRoute
   '/partida/jugar': typeof AuthenticatedPartidaJugarRoute
   '/partida/nueva': typeof AuthenticatedPartidaNuevaRoute
+  '/sala/nueva': typeof AuthenticatedSalaNuevaRoute
+  '/sala/$codigo/jugar': typeof SalaCodigoJugarRoute
+  '/sala/host/$codigo': typeof AuthenticatedSalaHostCodigoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -132,9 +165,13 @@ export interface FileRoutesById {
   '/_authenticated/ia': typeof AuthenticatedIaRoute
   '/_authenticated/importar': typeof AuthenticatedImportarRoute
   '/_authenticated/sincronizar': typeof AuthenticatedSincronizarRoute
+  '/sala/$codigo': typeof SalaCodigoRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/partida/jugar': typeof AuthenticatedPartidaJugarRoute
   '/_authenticated/partida/nueva': typeof AuthenticatedPartidaNuevaRoute
+  '/_authenticated/sala/nueva': typeof AuthenticatedSalaNuevaRoute
+  '/sala/$codigo/jugar': typeof SalaCodigoJugarRoute
+  '/_authenticated/sala/host/$codigo': typeof AuthenticatedSalaHostCodigoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -149,8 +186,12 @@ export interface FileRouteTypes {
     | '/ia'
     | '/importar'
     | '/sincronizar'
+    | '/sala/$codigo'
     | '/partida/jugar'
     | '/partida/nueva'
+    | '/sala/nueva'
+    | '/sala/$codigo/jugar'
+    | '/sala/host/$codigo'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
@@ -162,9 +203,13 @@ export interface FileRouteTypes {
     | '/ia'
     | '/importar'
     | '/sincronizar'
+    | '/sala/$codigo'
     | '/'
     | '/partida/jugar'
     | '/partida/nueva'
+    | '/sala/nueva'
+    | '/sala/$codigo/jugar'
+    | '/sala/host/$codigo'
   id:
     | '__root__'
     | '/_authenticated'
@@ -177,15 +222,20 @@ export interface FileRouteTypes {
     | '/_authenticated/ia'
     | '/_authenticated/importar'
     | '/_authenticated/sincronizar'
+    | '/sala/$codigo'
     | '/_authenticated/'
     | '/_authenticated/partida/jugar'
     | '/_authenticated/partida/nueva'
+    | '/_authenticated/sala/nueva'
+    | '/sala/$codigo/jugar'
+    | '/_authenticated/sala/host/$codigo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SalaCodigoRoute: typeof SalaCodigoRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -217,6 +267,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/sala/$codigo': {
+      id: '/sala/$codigo'
+      path: '/sala/$codigo'
+      fullPath: '/sala/$codigo'
+      preLoaderRoute: typeof SalaCodigoRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/sincronizar': {
       id: '/_authenticated/sincronizar'
@@ -267,6 +324,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAjustesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/sala/$codigo/jugar': {
+      id: '/sala/$codigo/jugar'
+      path: '/jugar'
+      fullPath: '/sala/$codigo/jugar'
+      preLoaderRoute: typeof SalaCodigoJugarRouteImport
+      parentRoute: typeof SalaCodigoRoute
+    }
+    '/_authenticated/sala/nueva': {
+      id: '/_authenticated/sala/nueva'
+      path: '/sala/nueva'
+      fullPath: '/sala/nueva'
+      preLoaderRoute: typeof AuthenticatedSalaNuevaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/partida/nueva': {
       id: '/_authenticated/partida/nueva'
       path: '/partida/nueva'
@@ -279,6 +350,13 @@ declare module '@tanstack/react-router' {
       path: '/partida/jugar'
       fullPath: '/partida/jugar'
       preLoaderRoute: typeof AuthenticatedPartidaJugarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sala/host/$codigo': {
+      id: '/_authenticated/sala/host/$codigo'
+      path: '/sala/host/$codigo'
+      fullPath: '/sala/host/$codigo'
+      preLoaderRoute: typeof AuthenticatedSalaHostCodigoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
@@ -295,6 +373,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedPartidaJugarRoute: typeof AuthenticatedPartidaJugarRoute
   AuthenticatedPartidaNuevaRoute: typeof AuthenticatedPartidaNuevaRoute
+  AuthenticatedSalaNuevaRoute: typeof AuthenticatedSalaNuevaRoute
+  AuthenticatedSalaHostCodigoRoute: typeof AuthenticatedSalaHostCodigoRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -308,15 +388,30 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedPartidaJugarRoute: AuthenticatedPartidaJugarRoute,
   AuthenticatedPartidaNuevaRoute: AuthenticatedPartidaNuevaRoute,
+  AuthenticatedSalaNuevaRoute: AuthenticatedSalaNuevaRoute,
+  AuthenticatedSalaHostCodigoRoute: AuthenticatedSalaHostCodigoRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface SalaCodigoRouteChildren {
+  SalaCodigoJugarRoute: typeof SalaCodigoJugarRoute
+}
+
+const SalaCodigoRouteChildren: SalaCodigoRouteChildren = {
+  SalaCodigoJugarRoute: SalaCodigoJugarRoute,
+}
+
+const SalaCodigoRouteWithChildren = SalaCodigoRoute._addFileChildren(
+  SalaCodigoRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SalaCodigoRoute: SalaCodigoRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
