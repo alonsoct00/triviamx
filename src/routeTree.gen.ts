@@ -20,6 +20,7 @@ import { Route as AuthenticatedImportarRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedIaRouteImport } from './routes/_authenticated/ia'
 import { Route as AuthenticatedHistorialRouteImport } from './routes/_authenticated/historial'
 import { Route as AuthenticatedEstadisticasRouteImport } from './routes/_authenticated/estadisticas'
+import { Route as AuthenticatedCuentaRouteImport } from './routes/_authenticated/cuenta'
 import { Route as AuthenticatedBancoRouteImport } from './routes/_authenticated/banco'
 import { Route as AuthenticatedAjustesRouteImport } from './routes/_authenticated/ajustes'
 import { Route as SalaCodigoJugarRouteImport } from './routes/sala.$codigo.jugar'
@@ -84,6 +85,11 @@ const AuthenticatedEstadisticasRoute =
     path: '/estadisticas',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCuentaRoute = AuthenticatedCuentaRouteImport.update({
+  id: '/cuenta',
+  path: '/cuenta',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedBancoRoute = AuthenticatedBancoRouteImport.update({
   id: '/banco',
   path: '/banco',
@@ -130,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ajustes': typeof AuthenticatedAjustesRoute
   '/banco': typeof AuthenticatedBancoRoute
+  '/cuenta': typeof AuthenticatedCuentaRoute
   '/estadisticas': typeof AuthenticatedEstadisticasRoute
   '/historial': typeof AuthenticatedHistorialRoute
   '/ia': typeof AuthenticatedIaRoute
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ajustes': typeof AuthenticatedAjustesRoute
   '/banco': typeof AuthenticatedBancoRoute
+  '/cuenta': typeof AuthenticatedCuentaRoute
   '/estadisticas': typeof AuthenticatedEstadisticasRoute
   '/historial': typeof AuthenticatedHistorialRoute
   '/ia': typeof AuthenticatedIaRoute
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/ajustes': typeof AuthenticatedAjustesRoute
   '/_authenticated/banco': typeof AuthenticatedBancoRoute
+  '/_authenticated/cuenta': typeof AuthenticatedCuentaRoute
   '/_authenticated/estadisticas': typeof AuthenticatedEstadisticasRoute
   '/_authenticated/historial': typeof AuthenticatedHistorialRoute
   '/_authenticated/ia': typeof AuthenticatedIaRoute
@@ -191,6 +200,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/ajustes'
     | '/banco'
+    | '/cuenta'
     | '/estadisticas'
     | '/historial'
     | '/ia'
@@ -209,6 +219,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/ajustes'
     | '/banco'
+    | '/cuenta'
     | '/estadisticas'
     | '/historial'
     | '/ia'
@@ -229,6 +240,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/_authenticated/ajustes'
     | '/_authenticated/banco'
+    | '/_authenticated/cuenta'
     | '/_authenticated/estadisticas'
     | '/_authenticated/historial'
     | '/_authenticated/ia'
@@ -330,6 +342,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEstadisticasRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/cuenta': {
+      id: '/_authenticated/cuenta'
+      path: '/cuenta'
+      fullPath: '/cuenta'
+      preLoaderRoute: typeof AuthenticatedCuentaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/banco': {
       id: '/_authenticated/banco'
       path: '/banco'
@@ -385,6 +404,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAjustesRoute: typeof AuthenticatedAjustesRoute
   AuthenticatedBancoRoute: typeof AuthenticatedBancoRoute
+  AuthenticatedCuentaRoute: typeof AuthenticatedCuentaRoute
   AuthenticatedEstadisticasRoute: typeof AuthenticatedEstadisticasRoute
   AuthenticatedHistorialRoute: typeof AuthenticatedHistorialRoute
   AuthenticatedIaRoute: typeof AuthenticatedIaRoute
@@ -400,6 +420,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAjustesRoute: AuthenticatedAjustesRoute,
   AuthenticatedBancoRoute: AuthenticatedBancoRoute,
+  AuthenticatedCuentaRoute: AuthenticatedCuentaRoute,
   AuthenticatedEstadisticasRoute: AuthenticatedEstadisticasRoute,
   AuthenticatedHistorialRoute: AuthenticatedHistorialRoute,
   AuthenticatedIaRoute: AuthenticatedIaRoute,
