@@ -241,12 +241,10 @@ export const estadoSala = createServerFn({ method: "GET" })
           tipo: p.tipo,
           categoria: p.categoria,
           nivel: p.nivel,
-          opciones: p.opciones,
+          opciones: Array.isArray(p.opciones) ? (p.opciones as string[]) : [],
+          respuesta: sala.estado === "revelada" ? p.respuesta : null,
+          explicacion: sala.estado === "revelada" ? p.explicacion : null,
         };
-        if (sala.estado === "revelada") {
-          pregunta.respuesta = p.respuesta;
-          pregunta.explicacion = p.explicacion;
-        }
       }
       if (data.jugador_id) {
         const { data: r } = await supabaseAdmin
