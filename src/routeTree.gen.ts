@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SincronizarRouteImport } from './routes/sincronizar'
+import { Route as ImportarRouteImport } from './routes/importar'
 import { Route as IaRouteImport } from './routes/ia'
 import { Route as HistorialRouteImport } from './routes/historial'
 import { Route as EstadisticasRouteImport } from './routes/estadisticas'
@@ -28,6 +29,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const SincronizarRoute = SincronizarRouteImport.update({
   id: '/sincronizar',
   path: '/sincronizar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImportarRoute = ImportarRouteImport.update({
+  id: '/importar',
+  path: '/importar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IaRoute = IaRouteImport.update({
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/estadisticas': typeof EstadisticasRoute
   '/historial': typeof HistorialRoute
   '/ia': typeof IaRoute
+  '/importar': typeof ImportarRoute
   '/sincronizar': typeof SincronizarRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/partida/jugar': typeof PartidaJugarRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/estadisticas': typeof EstadisticasRoute
   '/historial': typeof HistorialRoute
   '/ia': typeof IaRoute
+  '/importar': typeof ImportarRoute
   '/sincronizar': typeof SincronizarRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/partida/jugar': typeof PartidaJugarRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/estadisticas': typeof EstadisticasRoute
   '/historial': typeof HistorialRoute
   '/ia': typeof IaRoute
+  '/importar': typeof ImportarRoute
   '/sincronizar': typeof SincronizarRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/partida/jugar': typeof PartidaJugarRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/estadisticas'
     | '/historial'
     | '/ia'
+    | '/importar'
     | '/sincronizar'
     | '/sitemap.xml'
     | '/partida/jugar'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/estadisticas'
     | '/historial'
     | '/ia'
+    | '/importar'
     | '/sincronizar'
     | '/sitemap.xml'
     | '/partida/jugar'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/estadisticas'
     | '/historial'
     | '/ia'
+    | '/importar'
     | '/sincronizar'
     | '/sitemap.xml'
     | '/partida/jugar'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   EstadisticasRoute: typeof EstadisticasRoute
   HistorialRoute: typeof HistorialRoute
   IaRoute: typeof IaRoute
+  ImportarRoute: typeof ImportarRoute
   SincronizarRoute: typeof SincronizarRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   PartidaJugarRoute: typeof PartidaJugarRoute
@@ -174,6 +187,13 @@ declare module '@tanstack/react-router' {
       path: '/sincronizar'
       fullPath: '/sincronizar'
       preLoaderRoute: typeof SincronizarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/importar': {
+      id: '/importar'
+      path: '/importar'
+      fullPath: '/importar'
+      preLoaderRoute: typeof ImportarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ia': {
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   EstadisticasRoute: EstadisticasRoute,
   HistorialRoute: HistorialRoute,
   IaRoute: IaRoute,
+  ImportarRoute: ImportarRoute,
   SincronizarRoute: SincronizarRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   PartidaJugarRoute: PartidaJugarRoute,
