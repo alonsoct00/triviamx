@@ -67,16 +67,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "theme-color", content: "#09090b" },
-      { title: "Trivia Master MX — Herramienta para moderadores" },
+      { title: "Trivia Master MX — Panel del Moderador" },
       {
         name: "description",
         content:
           "Web App mobile-first en español para moderadores de trivia: banco de preguntas, cronómetro, respuestas ocultas y generación de preguntas con IA.",
       },
-      { property: "og:title", content: "Trivia Master MX" },
-      { property: "og:description", content: "Herramienta profesional para moderadores de trivia." },
+      { property: "og:title", content: "Trivia Master MX — Panel del Moderador" },
+      { property: "og:description", content: "Web App mobile-first en español para moderadores de trivia: banco de preguntas, cronómetro, respuestas ocultas y generación de preguntas con IA." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Trivia Master MX — Panel del Moderador" },
+      { name: "twitter:description", content: "Web App mobile-first en español para moderadores de trivia: banco de preguntas, cronómetro, respuestas ocultas y generación de preguntas con IA." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7dcd8ca5-3c77-4caf-88b0-a40a61a12ec6/id-preview-ef654b95--edc44288-a0ba-40cd-831e-2d9e181fab9f.lovable.app-1784597226826.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7dcd8ca5-3c77-4caf-88b0-a40a61a12ec6/id-preview-ef654b95--edc44288-a0ba-40cd-831e-2d9e181fab9f.lovable.app-1784597226826.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
