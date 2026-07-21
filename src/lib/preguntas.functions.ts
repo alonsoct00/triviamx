@@ -1,15 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 
 type Row = Database["public"]["Tables"]["preguntas"]["Row"];
 
-function getServerClient() {
-  const url = process.env.SUPABASE_URL!;
-  const key = process.env.SUPABASE_PUBLISHABLE_KEY!;
-  return createClient<Database>(url, key, {
-    auth: { persistSession: false, autoRefreshToken: false, storage: undefined },
-  });
+async function getAdmin() {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  return supabaseAdmin;
 }
 
 export const listPreguntas = createServerFn({ method: "GET" })
@@ -17,7 +13,7 @@ export const listPreguntas = createServerFn({ method: "GET" })
     (i: { categoria?: string; nivel?: string; tipo?: string; q?: string; limit?: number } | undefined) => i ?? {},
   )
   .handler(async ({ data }) => {
-    const sb = getServerClient();
+    const sb = await getAdmin();
     let q = sb.from("preguntas").select("*").order("created_at", { ascending: false });
     if (data.categoria) q = q.eq("categoria", data.categoria);
     if (data.nivel) q = q.eq("nivel", data.nivel);
@@ -33,7 +29,7 @@ export const getRandomPreguntas = createServerFn({ method: "POST" })
     (i: { categoria?: string; nivel?: string; cantidad?: number; excluir?: string[] }) => i,
   )
   .handler(async ({ data }) => {
-    const sb = getServerClient();
+    const sb = await getAdmin();
     let q = sb.from("preguntas").select("*");
     if (data.categoria) q = q.eq("categoria", data.categoria);
     if (data.nivel) q = q.eq("nivel", data.nivel);
@@ -41,7 +37,6 @@ export const getRandomPreguntas = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     const excl = new Set(data.excluir ?? []);
     const pool = (rows ?? []).filter((r) => !excl.has(r.id));
-    // shuffle
     for (let i = pool.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [pool[i], pool[j]] = [pool[j], pool[i]];
@@ -50,7 +45,7 @@ export const getRandomPreguntas = createServerFn({ method: "POST" })
   });
 
 export const contarPreguntas = createServerFn({ method: "GET" }).handler(async () => {
-  const sb = getServerClient();
+  const sb = await getAdmin();
   const { count, error } = await sb.from("preguntas").select("*", { count: "exact", head: true });
   if (error) throw new Error(error.message);
   const { data: porCat } = await sb.from("preguntas").select("categoria");
@@ -64,7 +59,7 @@ export const contarPreguntas = createServerFn({ method: "GET" }).handler(async (
 export const eliminarPregunta = createServerFn({ method: "POST" })
   .inputValidator((i: { id: string }) => i)
   .handler(async ({ data }) => {
-    const sb = getServerClient();
+    const sb = await getAdmin();
     const { error } = await sb.from("preguntas").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
@@ -86,7 +81,7 @@ export const guardarPregunta = createServerFn({ method: "POST" })
     }) => i,
   )
   .handler(async ({ data }) => {
-    const sb = getServerClient();
+    const sb = await getAdmin();
     const payload = {
       pregunta: data.pregunta,
       respuesta: data.respuesta,

@@ -1,6 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
-import type { Database } from "@/integrations/supabase/types";
+
 
 const CATEGORIAS_VALIDAS = [
   "cultura_general","historia","historia_mexico","geografia","biologia","quimica","fisica",
@@ -78,10 +77,8 @@ Devuelve JSON con esta forma:
     const arr = Array.isArray(parsed.preguntas) ? parsed.preguntas : [];
     if (!arr.length) throw new Error("La IA no devolvió preguntas.");
 
-    // Persist
-    const sb = createClient<Database>(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
-      auth: { persistSession: false, autoRefreshToken: false, storage: undefined },
-    });
+    // Persist via service role (bypasses RLS; tables are locked from anon)
+    const { supabaseAdmin: sb } = await import("@/integrations/supabase/client.server");
     const rows = arr.map((p) => ({
       pregunta: String(p.pregunta ?? "").trim(),
       respuesta: String(p.respuesta ?? "").trim(),
