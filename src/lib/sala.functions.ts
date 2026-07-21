@@ -218,9 +218,9 @@ export const estadoSala = createServerFn({ method: "GET" })
       tipo: string;
       categoria: string;
       nivel: string;
-      opciones: unknown;
-      respuesta?: string;
-      explicacion?: string | null;
+      opciones: string[];
+      respuesta: string | null;
+      explicacion: string | null;
     } | null = null;
     let yaRespondio = false;
 
