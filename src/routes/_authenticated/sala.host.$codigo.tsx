@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { estadoSala, iniciarSala, revelarSala, siguienteSala, cerrarSala } from "@/lib/sala.functions";
 import { ArrowLeft, Copy, Play, SkipForward, Eye, Square, Trophy } from "lucide-react";
