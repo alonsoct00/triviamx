@@ -73,7 +73,8 @@ export const contarPreguntas = createServerFn({ method: "GET" })
     return { total: count ?? 0, porCategoria: map };
   });
 
-async function assertAdmin(sb: Awaited<ReturnType<typeof import("@/integrations/supabase/auth-middleware")["requireSupabaseAuth"]>> extends never ? never : any, userId: string) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function assertAdmin(sb: any, userId: string) {
   const { data } = await sb
     .from("user_roles")
     .select("role")

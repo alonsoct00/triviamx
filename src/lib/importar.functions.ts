@@ -1,4 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+
 
 const CATEGORIAS_VALIDAS = new Set([
   "cultura_general","historia","historia_mexico","geografia","biologia","quimica","fisica",
@@ -25,8 +27,12 @@ function stripHtml(html: string): string {
 }
 
 export const importarDesdeURL = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((i: { url: string; categoriaSugerida?: string; nivelSugerido?: string; max?: number }) => i)
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
+    const { data: rol } = await context.supabase
+      .from("user_roles").select("role").eq("user_id", context.userId).eq("role", "admin").maybeSingle();
+    if (!rol) throw new Error("Solo administradores pueden importar preguntas.");
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("Lovable AI no está configurado.");
     let url: URL;
@@ -110,14 +116,13 @@ Reglas:
 
     if (!rows.length) return { generadas: 0, preguntas: [] };
 
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    // Dedup contra existentes por texto
-    const { data: existentes } = await supabaseAdmin.from("preguntas").select("pregunta").limit(2000);
+    const sb = context.supabase;
+    const { data: existentes } = await sb.from("preguntas").select("pregunta").limit(2000);
     const set = new Set((existentes ?? []).map((r) => r.pregunta.toLowerCase().trim()));
     const nuevos = rows.filter((r) => !set.has(r.pregunta.toLowerCase().trim()));
     if (!nuevos.length) return { generadas: 0, preguntas: [], nota: "Todas ya existían en el banco." };
 
-    const { data: inserted, error } = await supabaseAdmin.from("preguntas").insert(nuevos).select();
+    const { data: inserted, error } = await sb.from("preguntas").insert(nuevos).select();
     if (error) throw new Error(error.message);
     return { generadas: inserted?.length ?? 0, preguntas: inserted };
   });
