@@ -12,6 +12,8 @@ import { beep, useSettings } from "@/lib/settings";
 type SearchParams = {
   categoria?: string;
   nivel?: string;
+  categorias?: string;
+  niveles?: string;
   cantidad?: string;
   tiempo?: string;
 };
@@ -21,6 +23,8 @@ export const Route = createFileRoute("/partida/jugar")({
   validateSearch: (s: Record<string, unknown>): SearchParams => ({
     categoria: (s.categoria as string) || undefined,
     nivel: (s.nivel as string) || undefined,
+    categorias: (s.categorias as string) || undefined,
+    niveles: (s.niveles as string) || undefined,
     cantidad: (s.cantidad as string) || "10",
     tiempo: (s.tiempo as string) || "10",
   }),
@@ -35,11 +39,20 @@ function Jugar() {
   const nav = useNavigate();
   const [settings] = useSettings();
 
+  const categoriasArr = useMemo(
+    () => (search.categorias ? search.categorias.split(",").filter(Boolean) : search.categoria ? [search.categoria] : []),
+    [search.categorias, search.categoria],
+  );
+  const nivelesArr = useMemo(
+    () => (search.niveles ? search.niveles.split(",").filter(Boolean) : search.nivel ? [search.nivel] : []),
+    [search.niveles, search.nivel],
+  );
+
   const { data: preguntas, isLoading, refetch } = useQuery({
-    queryKey: ["partida", search.categoria, search.nivel, cantidad],
+    queryKey: ["partida", categoriasArr.join(","), nivelesArr.join(","), cantidad],
     queryFn: () =>
       getRandomPreguntas({
-        data: { categoria: search.categoria, nivel: search.nivel, cantidad },
+        data: { categorias: categoriasArr, niveles: nivelesArr, cantidad },
       }),
     staleTime: 0,
   });
@@ -56,24 +69,21 @@ function Jugar() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const creadaRef = useRef(false);
 
-  // Create partida once preguntas are loaded
   useEffect(() => {
     if (creadaRef.current) return;
     if (!preguntas || preguntas.length === 0) return;
     creadaRef.current = true;
     crearPartida({
       data: {
-        categoria: search.categoria,
-        nivel: search.nivel,
+        categoria: categoriasArr[0],
+        nivel: nivelesArr[0],
         cantidad: preguntas.length,
         tiempo_segundos: tiempoBase,
       },
     })
       .then((row) => setPartidaId(row.id))
-      .catch(() => {
-        /* si falla persistencia, seguimos jugando */
-      });
-  }, [preguntas, search.categoria, search.nivel, tiempoBase]);
+      .catch(() => {});
+  }, [preguntas, categoriasArr, nivelesArr, tiempoBase]);
 
   // Auto-presentador setting
   useEffect(() => {
@@ -82,7 +92,7 @@ function Jugar() {
   }, [settings.presentador]);
 
   const preguntaActual = preguntas?.[idx];
-  const categoriaId = preguntaActual?.categoria ?? search.categoria ?? "cultura_general";
+  const categoriaId = preguntaActual?.categoria ?? categoriasArr[0] ?? "cultura_general";
   const catColor = useMemo(() => getCategoria(categoriaId).color, [categoriaId]);
 
   useEffect(() => {

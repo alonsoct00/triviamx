@@ -12,25 +12,32 @@ export const Route = createFileRoute("/partida/nueva")({
 function NuevaPartida() {
   const nav = useNavigate();
   const [settings] = useSettings();
-  const [categoria, setCategoria] = useState<string>("");
-  const [nivel, setNivel] = useState<string>("");
+  const [categorias, setCategorias] = useState<string[]>([]);
+  const [niveles, setNiveles] = useState<string[]>([]);
   const [cantidad, setCantidad] = useState<number>(10);
   const [tiempo, setTiempo] = useState<number>(10);
 
-  // Apply saved defaults once
   useEffect(() => {
     setCantidad(settings.cantidadDefault);
     setTiempo(settings.tiempoDefault);
   }, [settings.cantidadDefault, settings.tiempoDefault]);
 
-  const start = () => {
-    const params = new URLSearchParams();
-    if (categoria) params.set("categoria", categoria);
-    if (nivel) params.set("nivel", nivel);
-    params.set("cantidad", String(cantidad));
-    params.set("tiempo", String(tiempo));
-    nav({ to: "/partida/jugar", search: Object.fromEntries(params) as Record<string, string> });
+  const toggle = (list: string[], setList: (v: string[]) => void, id: string) => {
+    setList(list.includes(id) ? list.filter((x) => x !== id) : [...list, id]);
   };
+
+  const start = () => {
+    const search: Record<string, string> = {
+      cantidad: String(cantidad),
+      tiempo: String(tiempo),
+    };
+    if (categorias.length) search.categorias = categorias.join(",");
+    if (niveles.length) search.niveles = niveles.join(",");
+    nav({ to: "/partida/jugar", search });
+  };
+
+  const todasCats = categorias.length === 0;
+  const todosNivs = niveles.length === 0;
 
   return (
     <AppShell>
@@ -40,46 +47,68 @@ function NuevaPartida() {
       <h2 className="mb-6 font-display text-2xl font-bold">Nueva partida</h2>
 
       <section className="mb-6">
-        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-500">Categoría</p>
+        <div className="mb-3 flex items-center justify-between">
+          <p className="text-xs font-bold uppercase tracking-widest text-zinc-500">
+            Categorías {categorias.length > 0 && <span className="text-blue-400">({categorias.length})</span>}
+          </p>
+          {categorias.length > 0 && (
+            <button onClick={() => setCategorias([])} className="text-[10px] uppercase tracking-widest text-zinc-500 hover:text-zinc-300">
+              Limpiar
+            </button>
+          )}
+        </div>
+        <p className="mb-2 text-[11px] text-zinc-500">Toca varias para combinar bancos. Ninguna = todas.</p>
         <div className="grid grid-cols-2 gap-2">
           <button
-            onClick={() => setCategoria("")}
-            className={`rounded-xl border p-3 text-left text-sm font-medium transition ${categoria === "" ? "border-blue-500 bg-blue-500/10 text-blue-400" : "border-zinc-800 bg-zinc-900 text-zinc-300"}`}
+            onClick={() => setCategorias([])}
+            className={`rounded-xl border p-3 text-left text-sm font-medium transition ${todasCats ? "border-blue-500 bg-blue-500/10 text-blue-400" : "border-zinc-800 bg-zinc-900 text-zinc-300"}`}
           >
             🎲 Todas
           </button>
-          {CATEGORIAS.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => setCategoria(c.id)}
-              className={`rounded-xl border p-3 text-left text-sm font-medium transition ${categoria === c.id ? "border-white/60 bg-white/5" : "border-zinc-800 bg-zinc-900"}`}
-              style={categoria === c.id ? { borderColor: c.color, backgroundColor: `${c.color}15`, color: c.color } : {}}
-            >
-              <span className="mr-1">{c.emoji}</span>
-              {c.nombre}
-            </button>
-          ))}
+          {CATEGORIAS.map((c) => {
+            const active = categorias.includes(c.id);
+            return (
+              <button
+                key={c.id}
+                onClick={() => toggle(categorias, setCategorias, c.id)}
+                className="rounded-xl border p-3 text-left text-sm font-medium transition"
+                style={
+                  active
+                    ? { borderColor: c.color, backgroundColor: `${c.color}22`, color: c.color }
+                    : { borderColor: "#27272a", backgroundColor: "#18181b", color: "#d4d4d8" }
+                }
+              >
+                <span className="mr-1">{c.emoji}</span>
+                {c.nombre}
+              </button>
+            );
+          })}
         </div>
       </section>
 
       <section className="mb-6">
-        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-500">Dificultad</p>
+        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-500">
+          Dificultad {niveles.length > 0 && <span className="text-blue-400">({niveles.length})</span>}
+        </p>
         <div className="grid grid-cols-3 gap-2">
           <button
-            onClick={() => setNivel("")}
-            className={`rounded-xl border p-3 text-sm font-medium ${nivel === "" ? "border-blue-500 bg-blue-500/10 text-blue-400" : "border-zinc-800 bg-zinc-900 text-zinc-300"}`}
+            onClick={() => setNiveles([])}
+            className={`rounded-xl border p-3 text-sm font-medium ${todosNivs ? "border-blue-500 bg-blue-500/10 text-blue-400" : "border-zinc-800 bg-zinc-900 text-zinc-300"}`}
           >
             Cualquiera
           </button>
-          {NIVELES.map((n) => (
-            <button
-              key={n.id}
-              onClick={() => setNivel(n.id)}
-              className={`rounded-xl border p-3 text-sm font-medium ${nivel === n.id ? "border-blue-500 bg-blue-500/10 text-blue-400" : "border-zinc-800 bg-zinc-900 text-zinc-300"}`}
-            >
-              {n.nombre}
-            </button>
-          ))}
+          {NIVELES.map((n) => {
+            const active = niveles.includes(n.id);
+            return (
+              <button
+                key={n.id}
+                onClick={() => toggle(niveles, setNiveles, n.id)}
+                className={`rounded-xl border p-3 text-sm font-medium ${active ? "border-blue-500 bg-blue-500/10 text-blue-400" : "border-zinc-800 bg-zinc-900 text-zinc-300"}`}
+              >
+                {n.nombre}
+              </button>
+            );
+          })}
         </div>
       </section>
 
