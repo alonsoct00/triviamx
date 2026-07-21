@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 import { BottomNav } from "./BottomNav";
 import { useCurrentUser, useIsAdmin } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { LogOut, Shield } from "lucide-react";
+import { LogOut, Shield, UserCog } from "lucide-react";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { user } = useCurrentUser();
@@ -39,13 +39,22 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span className="truncate text-[10px] text-zinc-500">{user.email}</span>
             )}
           </div>
-          <button
-            onClick={handleSignOut}
-            title="Cerrar sesión"
-            className="flex size-10 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-red-400 hover:border-red-500/40"
-          >
-            <LogOut className="size-4" />
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/cuenta"
+              title="Administrar cuenta"
+              className="flex size-10 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-blue-400 hover:border-blue-500/40"
+            >
+              <UserCog className="size-4" />
+            </Link>
+            <button
+              onClick={handleSignOut}
+              title="Cerrar sesión"
+              className="flex size-10 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-red-400 hover:border-red-500/40"
+            >
+              <LogOut className="size-4" />
+            </button>
+          </div>
         </header>
         {children}
       </div>
