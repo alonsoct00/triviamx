@@ -60,10 +60,16 @@ export const registrarRespuesta = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     // update counters
     if (data.resultado === "correcta" || data.resultado === "incorrecta") {
-      const field = data.resultado === "correcta" ? "correctas" : "incorrectas";
-      const { data: current } = await sb.from("partidas").select(field).eq("id", data.partida_id).single();
-      const val = ((current as Record<string, number> | null)?.[field] ?? 0) + 1;
-      await sb.from("partidas").update({ [field]: val, updated_at: new Date().toISOString() }).eq("id", data.partida_id);
+      const { data: current } = await sb
+        .from("partidas")
+        .select("correctas, incorrectas")
+        .eq("id", data.partida_id)
+        .single();
+      const patch =
+        data.resultado === "correcta"
+          ? { correctas: (current?.correctas ?? 0) + 1, updated_at: new Date().toISOString() }
+          : { incorrectas: (current?.incorrectas ?? 0) + 1, updated_at: new Date().toISOString() };
+      await sb.from("partidas").update(patch).eq("id", data.partida_id);
     }
     return { ok: true };
   });
