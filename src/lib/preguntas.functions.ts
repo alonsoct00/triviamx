@@ -1,20 +1,16 @@
 import { createServerFn } from "@tanstack/react-start";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { Database } from "@/integrations/supabase/types";
 
 type Row = Database["public"]["Tables"]["preguntas"]["Row"];
 
-async function getAdmin() {
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  return supabaseAdmin;
-}
-
 export const listPreguntas = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
   .inputValidator(
     (i: { categoria?: string; nivel?: string; tipo?: string; q?: string; limit?: number } | undefined) => i ?? {},
   )
-  .handler(async ({ data }) => {
-    const sb = await getAdmin();
-    let q = sb.from("preguntas").select("*").order("created_at", { ascending: false });
+  .handler(async ({ data, context }) => {
+    let q = context.supabase.from("preguntas").select("*").order("created_at", { ascending: false });
     if (data.categoria) q = q.eq("categoria", data.categoria);
     if (data.nivel) q = q.eq("nivel", data.nivel);
     if (data.tipo) q = q.eq("tipo", data.tipo);
@@ -25,6 +21,7 @@ export const listPreguntas = createServerFn({ method: "GET" })
   });
 
 export const getRandomPreguntas = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator(
     (i: {
       categoria?: string;
@@ -35,8 +32,8 @@ export const getRandomPreguntas = createServerFn({ method: "POST" })
       excluir?: string[];
     }) => i,
   )
-  .handler(async ({ data }) => {
-    const sb = await getAdmin();
+  .handler(async ({ data, context }) => {
+    const sb = context.supabase;
     const cats = (data.categorias?.length ? data.categorias : data.categoria ? [data.categoria] : []).filter(Boolean);
     const nivs = (data.niveles?.length ? data.niveles : data.nivel ? [data.nivel] : []).filter(Boolean);
 
@@ -49,7 +46,6 @@ export const getRandomPreguntas = createServerFn({ method: "POST" })
       return rows ?? [];
     };
 
-    // Fallback progresivo: exacto → sin nivel → todo el banco
     let rows = await fetchPool(true, true);
     if (!rows.length && nivs.length) rows = await fetchPool(true, false);
     if (!rows.length) rows = await fetchPool(false, false);
@@ -63,28 +59,42 @@ export const getRandomPreguntas = createServerFn({ method: "POST" })
     return pool.slice(0, data.cantidad ?? 10) as Row[];
   });
 
-export const contarPreguntas = createServerFn({ method: "GET" }).handler(async () => {
-  const sb = await getAdmin();
-  const { count, error } = await sb.from("preguntas").select("*", { count: "exact", head: true });
-  if (error) throw new Error(error.message);
-  const { data: porCat } = await sb.from("preguntas").select("categoria");
-  const map: Record<string, number> = {};
-  (porCat ?? []).forEach((r) => {
-    map[r.categoria] = (map[r.categoria] ?? 0) + 1;
+export const contarPreguntas = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const sb = context.supabase;
+    const { count, error } = await sb.from("preguntas").select("*", { count: "exact", head: true });
+    if (error) throw new Error(error.message);
+    const { data: porCat } = await sb.from("preguntas").select("categoria");
+    const map: Record<string, number> = {};
+    (porCat ?? []).forEach((r) => {
+      map[r.categoria] = (map[r.categoria] ?? 0) + 1;
+    });
+    return { total: count ?? 0, porCategoria: map };
   });
-  return { total: count ?? 0, porCategoria: map };
-});
+
+async function assertAdmin(sb: Awaited<ReturnType<typeof import("@/integrations/supabase/auth-middleware")["requireSupabaseAuth"]>> extends never ? never : any, userId: string) {
+  const { data } = await sb
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  if (!data) throw new Error("Solo administradores pueden modificar el banco de preguntas.");
+}
 
 export const eliminarPregunta = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((i: { id: string }) => i)
-  .handler(async ({ data }) => {
-    const sb = await getAdmin();
-    const { error } = await sb.from("preguntas").delete().eq("id", data.id);
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { error } = await context.supabase.from("preguntas").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
 
 export const guardarPregunta = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator(
     (i: {
       id?: string;
@@ -99,8 +109,9 @@ export const guardarPregunta = createServerFn({ method: "POST" })
       tags?: string[];
     }) => i,
   )
-  .handler(async ({ data }) => {
-    const sb = await getAdmin();
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const sb = context.supabase;
     const payload = {
       pregunta: data.pregunta,
       respuesta: data.respuesta,
