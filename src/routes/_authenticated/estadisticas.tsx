@@ -5,7 +5,7 @@ import { AppShell } from "@/components/AppShell";
 import { contarPreguntas } from "@/lib/preguntas.functions";
 import { getCategoria } from "@/lib/categorias";
 
-export const Route = createFileRoute("/estadisticas")({
+export const Route = createFileRoute("/_authenticated/estadisticas")({
   component: Estadisticas,
 });
 

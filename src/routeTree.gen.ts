@@ -10,117 +10,138 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SincronizarRouteImport } from './routes/sincronizar'
-import { Route as ImportarRouteImport } from './routes/importar'
-import { Route as IaRouteImport } from './routes/ia'
-import { Route as HistorialRouteImport } from './routes/historial'
-import { Route as EstadisticasRouteImport } from './routes/estadisticas'
-import { Route as BancoRouteImport } from './routes/banco'
-import { Route as AjustesRouteImport } from './routes/ajustes'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as PartidaNuevaRouteImport } from './routes/partida.nueva'
-import { Route as PartidaJugarRouteImport } from './routes/partida.jugar'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedSincronizarRouteImport } from './routes/_authenticated/sincronizar'
+import { Route as AuthenticatedImportarRouteImport } from './routes/_authenticated/importar'
+import { Route as AuthenticatedIaRouteImport } from './routes/_authenticated/ia'
+import { Route as AuthenticatedHistorialRouteImport } from './routes/_authenticated/historial'
+import { Route as AuthenticatedEstadisticasRouteImport } from './routes/_authenticated/estadisticas'
+import { Route as AuthenticatedBancoRouteImport } from './routes/_authenticated/banco'
+import { Route as AuthenticatedAjustesRouteImport } from './routes/_authenticated/ajustes'
+import { Route as AuthenticatedPartidaNuevaRouteImport } from './routes/_authenticated/partida.nueva'
+import { Route as AuthenticatedPartidaJugarRouteImport } from './routes/_authenticated/partida.jugar'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SincronizarRoute = SincronizarRouteImport.update({
-  id: '/sincronizar',
-  path: '/sincronizar',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ImportarRoute = ImportarRouteImport.update({
-  id: '/importar',
-  path: '/importar',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IaRoute = IaRouteImport.update({
-  id: '/ia',
-  path: '/ia',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HistorialRoute = HistorialRouteImport.update({
-  id: '/historial',
-  path: '/historial',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EstadisticasRoute = EstadisticasRouteImport.update({
-  id: '/estadisticas',
-  path: '/estadisticas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BancoRoute = BancoRouteImport.update({
-  id: '/banco',
-  path: '/banco',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AjustesRoute = AjustesRouteImport.update({
-  id: '/ajustes',
-  path: '/ajustes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const PartidaNuevaRoute = PartidaNuevaRouteImport.update({
-  id: '/partida/nueva',
-  path: '/partida/nueva',
-  getParentRoute: () => rootRouteImport,
+const AuthenticatedSincronizarRoute =
+  AuthenticatedSincronizarRouteImport.update({
+    id: '/sincronizar',
+    path: '/sincronizar',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedImportarRoute = AuthenticatedImportarRouteImport.update({
+  id: '/importar',
+  path: '/importar',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const PartidaJugarRoute = PartidaJugarRouteImport.update({
-  id: '/partida/jugar',
-  path: '/partida/jugar',
-  getParentRoute: () => rootRouteImport,
+const AuthenticatedIaRoute = AuthenticatedIaRouteImport.update({
+  id: '/ia',
+  path: '/ia',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedHistorialRoute = AuthenticatedHistorialRouteImport.update({
+  id: '/historial',
+  path: '/historial',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEstadisticasRoute =
+  AuthenticatedEstadisticasRouteImport.update({
+    id: '/estadisticas',
+    path: '/estadisticas',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedBancoRoute = AuthenticatedBancoRouteImport.update({
+  id: '/banco',
+  path: '/banco',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAjustesRoute = AuthenticatedAjustesRouteImport.update({
+  id: '/ajustes',
+  path: '/ajustes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPartidaNuevaRoute =
+  AuthenticatedPartidaNuevaRouteImport.update({
+    id: '/partida/nueva',
+    path: '/partida/nueva',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPartidaJugarRoute =
+  AuthenticatedPartidaJugarRouteImport.update({
+    id: '/partida/jugar',
+    path: '/partida/jugar',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/ajustes': typeof AjustesRoute
-  '/banco': typeof BancoRoute
-  '/estadisticas': typeof EstadisticasRoute
-  '/historial': typeof HistorialRoute
-  '/ia': typeof IaRoute
-  '/importar': typeof ImportarRoute
-  '/sincronizar': typeof SincronizarRoute
+  '/': typeof AuthenticatedIndexRoute
+  '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/partida/jugar': typeof PartidaJugarRoute
-  '/partida/nueva': typeof PartidaNuevaRoute
+  '/ajustes': typeof AuthenticatedAjustesRoute
+  '/banco': typeof AuthenticatedBancoRoute
+  '/estadisticas': typeof AuthenticatedEstadisticasRoute
+  '/historial': typeof AuthenticatedHistorialRoute
+  '/ia': typeof AuthenticatedIaRoute
+  '/importar': typeof AuthenticatedImportarRoute
+  '/sincronizar': typeof AuthenticatedSincronizarRoute
+  '/partida/jugar': typeof AuthenticatedPartidaJugarRoute
+  '/partida/nueva': typeof AuthenticatedPartidaNuevaRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/ajustes': typeof AjustesRoute
-  '/banco': typeof BancoRoute
-  '/estadisticas': typeof EstadisticasRoute
-  '/historial': typeof HistorialRoute
-  '/ia': typeof IaRoute
-  '/importar': typeof ImportarRoute
-  '/sincronizar': typeof SincronizarRoute
+  '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/partida/jugar': typeof PartidaJugarRoute
-  '/partida/nueva': typeof PartidaNuevaRoute
+  '/ajustes': typeof AuthenticatedAjustesRoute
+  '/banco': typeof AuthenticatedBancoRoute
+  '/estadisticas': typeof AuthenticatedEstadisticasRoute
+  '/historial': typeof AuthenticatedHistorialRoute
+  '/ia': typeof AuthenticatedIaRoute
+  '/importar': typeof AuthenticatedImportarRoute
+  '/sincronizar': typeof AuthenticatedSincronizarRoute
+  '/': typeof AuthenticatedIndexRoute
+  '/partida/jugar': typeof AuthenticatedPartidaJugarRoute
+  '/partida/nueva': typeof AuthenticatedPartidaNuevaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/ajustes': typeof AjustesRoute
-  '/banco': typeof BancoRoute
-  '/estadisticas': typeof EstadisticasRoute
-  '/historial': typeof HistorialRoute
-  '/ia': typeof IaRoute
-  '/importar': typeof ImportarRoute
-  '/sincronizar': typeof SincronizarRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/partida/jugar': typeof PartidaJugarRoute
-  '/partida/nueva': typeof PartidaNuevaRoute
+  '/_authenticated/ajustes': typeof AuthenticatedAjustesRoute
+  '/_authenticated/banco': typeof AuthenticatedBancoRoute
+  '/_authenticated/estadisticas': typeof AuthenticatedEstadisticasRoute
+  '/_authenticated/historial': typeof AuthenticatedHistorialRoute
+  '/_authenticated/ia': typeof AuthenticatedIaRoute
+  '/_authenticated/importar': typeof AuthenticatedImportarRoute
+  '/_authenticated/sincronizar': typeof AuthenticatedSincronizarRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/partida/jugar': typeof AuthenticatedPartidaJugarRoute
+  '/_authenticated/partida/nueva': typeof AuthenticatedPartidaNuevaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
+    | '/sitemap.xml'
     | '/ajustes'
     | '/banco'
     | '/estadisticas'
@@ -128,12 +149,12 @@ export interface FileRouteTypes {
     | '/ia'
     | '/importar'
     | '/sincronizar'
-    | '/sitemap.xml'
     | '/partida/jugar'
     | '/partida/nueva'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
+    | '/auth'
+    | '/sitemap.xml'
     | '/ajustes'
     | '/banco'
     | '/estadisticas'
@@ -141,36 +162,30 @@ export interface FileRouteTypes {
     | '/ia'
     | '/importar'
     | '/sincronizar'
-    | '/sitemap.xml'
+    | '/'
     | '/partida/jugar'
     | '/partida/nueva'
   id:
     | '__root__'
-    | '/'
-    | '/ajustes'
-    | '/banco'
-    | '/estadisticas'
-    | '/historial'
-    | '/ia'
-    | '/importar'
-    | '/sincronizar'
+    | '/_authenticated'
+    | '/auth'
     | '/sitemap.xml'
-    | '/partida/jugar'
-    | '/partida/nueva'
+    | '/_authenticated/ajustes'
+    | '/_authenticated/banco'
+    | '/_authenticated/estadisticas'
+    | '/_authenticated/historial'
+    | '/_authenticated/ia'
+    | '/_authenticated/importar'
+    | '/_authenticated/sincronizar'
+    | '/_authenticated/'
+    | '/_authenticated/partida/jugar'
+    | '/_authenticated/partida/nueva'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AjustesRoute: typeof AjustesRoute
-  BancoRoute: typeof BancoRoute
-  EstadisticasRoute: typeof EstadisticasRoute
-  HistorialRoute: typeof HistorialRoute
-  IaRoute: typeof IaRoute
-  ImportarRoute: typeof ImportarRoute
-  SincronizarRoute: typeof SincronizarRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  PartidaJugarRoute: typeof PartidaJugarRoute
-  PartidaNuevaRoute: typeof PartidaNuevaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -182,91 +197,126 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sincronizar': {
-      id: '/sincronizar'
-      path: '/sincronizar'
-      fullPath: '/sincronizar'
-      preLoaderRoute: typeof SincronizarRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/importar': {
-      id: '/importar'
-      path: '/importar'
-      fullPath: '/importar'
-      preLoaderRoute: typeof ImportarRouteImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/ia': {
-      id: '/ia'
-      path: '/ia'
-      fullPath: '/ia'
-      preLoaderRoute: typeof IaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/historial': {
-      id: '/historial'
-      path: '/historial'
-      fullPath: '/historial'
-      preLoaderRoute: typeof HistorialRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/estadisticas': {
-      id: '/estadisticas'
-      path: '/estadisticas'
-      fullPath: '/estadisticas'
-      preLoaderRoute: typeof EstadisticasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/banco': {
-      id: '/banco'
-      path: '/banco'
-      fullPath: '/banco'
-      preLoaderRoute: typeof BancoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ajustes': {
-      id: '/ajustes'
-      path: '/ajustes'
-      fullPath: '/ajustes'
-      preLoaderRoute: typeof AjustesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
+    '/_authenticated/': {
+      id: '/_authenticated/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/partida/nueva': {
-      id: '/partida/nueva'
+    '/_authenticated/sincronizar': {
+      id: '/_authenticated/sincronizar'
+      path: '/sincronizar'
+      fullPath: '/sincronizar'
+      preLoaderRoute: typeof AuthenticatedSincronizarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/importar': {
+      id: '/_authenticated/importar'
+      path: '/importar'
+      fullPath: '/importar'
+      preLoaderRoute: typeof AuthenticatedImportarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia': {
+      id: '/_authenticated/ia'
+      path: '/ia'
+      fullPath: '/ia'
+      preLoaderRoute: typeof AuthenticatedIaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/historial': {
+      id: '/_authenticated/historial'
+      path: '/historial'
+      fullPath: '/historial'
+      preLoaderRoute: typeof AuthenticatedHistorialRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/estadisticas': {
+      id: '/_authenticated/estadisticas'
+      path: '/estadisticas'
+      fullPath: '/estadisticas'
+      preLoaderRoute: typeof AuthenticatedEstadisticasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/banco': {
+      id: '/_authenticated/banco'
+      path: '/banco'
+      fullPath: '/banco'
+      preLoaderRoute: typeof AuthenticatedBancoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ajustes': {
+      id: '/_authenticated/ajustes'
+      path: '/ajustes'
+      fullPath: '/ajustes'
+      preLoaderRoute: typeof AuthenticatedAjustesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/partida/nueva': {
+      id: '/_authenticated/partida/nueva'
       path: '/partida/nueva'
       fullPath: '/partida/nueva'
-      preLoaderRoute: typeof PartidaNuevaRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedPartidaNuevaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/partida/jugar': {
-      id: '/partida/jugar'
+    '/_authenticated/partida/jugar': {
+      id: '/_authenticated/partida/jugar'
       path: '/partida/jugar'
       fullPath: '/partida/jugar'
-      preLoaderRoute: typeof PartidaJugarRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedPartidaJugarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAjustesRoute: typeof AuthenticatedAjustesRoute
+  AuthenticatedBancoRoute: typeof AuthenticatedBancoRoute
+  AuthenticatedEstadisticasRoute: typeof AuthenticatedEstadisticasRoute
+  AuthenticatedHistorialRoute: typeof AuthenticatedHistorialRoute
+  AuthenticatedIaRoute: typeof AuthenticatedIaRoute
+  AuthenticatedImportarRoute: typeof AuthenticatedImportarRoute
+  AuthenticatedSincronizarRoute: typeof AuthenticatedSincronizarRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedPartidaJugarRoute: typeof AuthenticatedPartidaJugarRoute
+  AuthenticatedPartidaNuevaRoute: typeof AuthenticatedPartidaNuevaRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAjustesRoute: AuthenticatedAjustesRoute,
+  AuthenticatedBancoRoute: AuthenticatedBancoRoute,
+  AuthenticatedEstadisticasRoute: AuthenticatedEstadisticasRoute,
+  AuthenticatedHistorialRoute: AuthenticatedHistorialRoute,
+  AuthenticatedIaRoute: AuthenticatedIaRoute,
+  AuthenticatedImportarRoute: AuthenticatedImportarRoute,
+  AuthenticatedSincronizarRoute: AuthenticatedSincronizarRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedPartidaJugarRoute: AuthenticatedPartidaJugarRoute,
+  AuthenticatedPartidaNuevaRoute: AuthenticatedPartidaNuevaRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AjustesRoute: AjustesRoute,
-  BancoRoute: BancoRoute,
-  EstadisticasRoute: EstadisticasRoute,
-  HistorialRoute: HistorialRoute,
-  IaRoute: IaRoute,
-  ImportarRoute: ImportarRoute,
-  SincronizarRoute: SincronizarRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  PartidaJugarRoute: PartidaJugarRoute,
-  PartidaNuevaRoute: PartidaNuevaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

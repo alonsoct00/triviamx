@@ -6,7 +6,7 @@ import { AppShell } from "@/components/AppShell";
 import { CATEGORIAS, NIVELES } from "@/lib/categorias";
 import { importarDesdeURL } from "@/lib/importar.functions";
 
-export const Route = createFileRoute("/importar")({
+export const Route = createFileRoute("/_authenticated/importar")({
   component: Importar,
 });
 

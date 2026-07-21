@@ -1,11 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
-
-async function getAdmin() {
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  return supabaseAdmin;
-}
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 export const crearPartida = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator(
     (i: {
       nombre?: string;
@@ -15,9 +12,8 @@ export const crearPartida = createServerFn({ method: "POST" })
       tiempo_segundos: number;
     }) => i,
   )
-  .handler(async ({ data }) => {
-    const sb = await getAdmin();
-    const { data: row, error } = await sb
+  .handler(async ({ data, context }) => {
+    const { data: row, error } = await context.supabase
       .from("partidas")
       .insert({
         nombre: data.nombre ?? null,
@@ -26,6 +22,7 @@ export const crearPartida = createServerFn({ method: "POST" })
         cantidad: data.cantidad,
         tiempo_segundos: data.tiempo_segundos,
         estado: "en_curso",
+        user_id: context.userId,
       })
       .select()
       .single();
@@ -34,6 +31,7 @@ export const crearPartida = createServerFn({ method: "POST" })
   });
 
 export const registrarRespuesta = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator(
     (i: {
       partida_id: string;
@@ -43,8 +41,8 @@ export const registrarRespuesta = createServerFn({ method: "POST" })
       segundos_usados?: number;
     }) => i,
   )
-  .handler(async ({ data }) => {
-    const sb = await getAdmin();
+  .handler(async ({ data, context }) => {
+    const sb = context.supabase;
     const { error } = await sb.from("partida_preguntas").insert({
       partida_id: data.partida_id,
       pregunta_id: data.pregunta_id,
@@ -69,10 +67,10 @@ export const registrarRespuesta = createServerFn({ method: "POST" })
   });
 
 export const finalizarPartida = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((i: { partida_id: string; estado?: "finalizada" | "abandonada" }) => i)
-  .handler(async ({ data }) => {
-    const sb = await getAdmin();
-    const { error } = await sb
+  .handler(async ({ data, context }) => {
+    const { error } = await context.supabase
       .from("partidas")
       .update({ estado: data.estado ?? "finalizada", updated_at: new Date().toISOString() })
       .eq("id", data.partida_id);
@@ -80,21 +78,23 @@ export const finalizarPartida = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
-export const listPartidas = createServerFn({ method: "GET" }).handler(async () => {
-  const sb = await getAdmin();
-  const { data, error } = await sb
-    .from("partidas")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .limit(100);
-  if (error) throw new Error(error.message);
-  return data;
-});
+export const listPartidas = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data, error } = await context.supabase
+      .from("partidas")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(100);
+    if (error) throw new Error(error.message);
+    return data;
+  });
 
 export const getPartida = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((i: { id: string }) => i)
-  .handler(async ({ data }) => {
-    const sb = await getAdmin();
+  .handler(async ({ data, context }) => {
+    const sb = context.supabase;
     const { data: partida, error } = await sb.from("partidas").select("*").eq("id", data.id).maybeSingle();
     if (error) throw new Error(error.message);
     if (!partida) return null;
@@ -107,9 +107,10 @@ export const getPartida = createServerFn({ method: "GET" })
   });
 
 export const eliminarPartida = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((i: { id: string }) => i)
-  .handler(async ({ data }) => {
-    const sb = await getAdmin();
+  .handler(async ({ data, context }) => {
+    const sb = context.supabase;
     await sb.from("partida_preguntas").delete().eq("partida_id", data.id);
     const { error } = await sb.from("partidas").delete().eq("id", data.id);
     if (error) throw new Error(error.message);

@@ -18,7 +18,7 @@ type SearchParams = {
   tiempo?: string;
 };
 
-export const Route = createFileRoute("/partida/jugar")({
+export const Route = createFileRoute("/_authenticated/partida/jugar")({
   component: Jugar,
   validateSearch: (s: Record<string, unknown>): SearchParams => ({
     categoria: (s.categoria as string) || undefined,

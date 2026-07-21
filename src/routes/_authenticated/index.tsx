@@ -4,7 +4,7 @@ import { Play, Library, Sparkles, History, BarChart3, Settings, RefreshCw, Globe
 import { AppShell } from "@/components/AppShell";
 import { contarPreguntas } from "@/lib/preguntas.functions";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_authenticated/")({
   component: Home,
   head: () => ({
     meta: [{ title: "Trivia Master MX — Panel del Moderador" }],

@@ -7,7 +7,7 @@ import { CategoryBadge } from "@/components/CategoryBadge";
 import { CATEGORIAS, NIVELES } from "@/lib/categorias";
 import { eliminarPregunta, guardarPregunta, listPreguntas } from "@/lib/preguntas.functions";
 
-export const Route = createFileRoute("/banco")({
+export const Route = createFileRoute("/_authenticated/banco")({
   component: Banco,
 });
 
