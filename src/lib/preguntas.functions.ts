@@ -26,17 +26,36 @@ export const listPreguntas = createServerFn({ method: "GET" })
 
 export const getRandomPreguntas = createServerFn({ method: "POST" })
   .inputValidator(
-    (i: { categoria?: string; nivel?: string; cantidad?: number; excluir?: string[] }) => i,
+    (i: {
+      categoria?: string;
+      nivel?: string;
+      categorias?: string[];
+      niveles?: string[];
+      cantidad?: number;
+      excluir?: string[];
+    }) => i,
   )
   .handler(async ({ data }) => {
     const sb = await getAdmin();
-    let q = sb.from("preguntas").select("*");
-    if (data.categoria) q = q.eq("categoria", data.categoria);
-    if (data.nivel) q = q.eq("nivel", data.nivel);
-    const { data: rows, error } = await q.limit(500);
-    if (error) throw new Error(error.message);
+    const cats = (data.categorias?.length ? data.categorias : data.categoria ? [data.categoria] : []).filter(Boolean);
+    const nivs = (data.niveles?.length ? data.niveles : data.nivel ? [data.nivel] : []).filter(Boolean);
+
+    const fetchPool = async (useCats: boolean, useNivs: boolean) => {
+      let q = sb.from("preguntas").select("*");
+      if (useCats && cats.length) q = q.in("categoria", cats);
+      if (useNivs && nivs.length) q = q.in("nivel", nivs);
+      const { data: rows, error } = await q.limit(1000);
+      if (error) throw new Error(error.message);
+      return rows ?? [];
+    };
+
+    // Fallback progresivo: exacto → sin nivel → todo el banco
+    let rows = await fetchPool(true, true);
+    if (!rows.length && nivs.length) rows = await fetchPool(true, false);
+    if (!rows.length) rows = await fetchPool(false, false);
+
     const excl = new Set(data.excluir ?? []);
-    const pool = (rows ?? []).filter((r) => !excl.has(r.id));
+    const pool = rows.filter((r) => !excl.has(r.id));
     for (let i = pool.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [pool[i], pool[j]] = [pool[j], pool[i]];

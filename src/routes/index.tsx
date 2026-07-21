@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Play, Library, Sparkles, History, BarChart3, Settings, RefreshCw } from "lucide-react";
+import { Play, Library, Sparkles, History, BarChart3, Settings, RefreshCw, Globe } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { contarPreguntas } from "@/lib/preguntas.functions";
 
@@ -44,7 +44,9 @@ function Home() {
         <Tile to="/ia" icon={<Sparkles className="size-5" />} label="Generar con IA" hint="Crea preguntas nuevas" accent="text-purple-400" />
         <Tile to="/historial" icon={<History className="size-5" />} label="Historial" hint="Partidas anteriores" />
         <Tile to="/estadisticas" icon={<BarChart3 className="size-5" />} label="Estadísticas" hint="Uso por categoría" />
+        <Tile to="/importar" icon={<Globe className="size-5" />} label="Importar de la web" hint="Scraping + IA" accent="text-cyan-400" />
         <Tile to="/sincronizar" icon={<RefreshCw className="size-5" />} label="Sincronizar" hint="Datos actualizados" accent="text-cyan-400" />
+
         <Tile to="/ajustes" icon={<Settings className="size-5" />} label="Configuración" hint="Tiempo, sonido, tema" />
       </div>
     </AppShell>
