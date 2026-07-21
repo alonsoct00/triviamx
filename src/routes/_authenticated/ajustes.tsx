@@ -4,7 +4,7 @@ import { AppShell } from "@/components/AppShell";
 import { useSettings } from "@/lib/settings";
 import { TIEMPOS } from "@/lib/categorias";
 
-export const Route = createFileRoute("/ajustes")({
+export const Route = createFileRoute("/_authenticated/ajustes")({
   component: Ajustes,
 });
 

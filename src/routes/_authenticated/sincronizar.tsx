@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, RefreshCw } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 
-export const Route = createFileRoute("/sincronizar")({
+export const Route = createFileRoute("/_authenticated/sincronizar")({
   component: Sync,
 });
 

@@ -6,7 +6,7 @@ import { AppShell } from "@/components/AppShell";
 import { CATEGORIAS, NIVELES } from "@/lib/categorias";
 import { generarPreguntasIA } from "@/lib/ia.functions";
 
-export const Route = createFileRoute("/ia")({
+export const Route = createFileRoute("/_authenticated/ia")({
   component: IAGen,
 });
 

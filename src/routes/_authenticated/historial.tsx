@@ -5,7 +5,7 @@ import { AppShell } from "@/components/AppShell";
 import { eliminarPartida, listPartidas } from "@/lib/partidas.functions";
 import { getCategoria } from "@/lib/categorias";
 
-export const Route = createFileRoute("/historial")({
+export const Route = createFileRoute("/_authenticated/historial")({
   component: Historial,
 });
 

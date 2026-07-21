@@ -5,7 +5,7 @@ import { CATEGORIAS, NIVELES, TIEMPOS } from "@/lib/categorias";
 import { ArrowLeft, Play } from "lucide-react";
 import { useSettings } from "@/lib/settings";
 
-export const Route = createFileRoute("/partida/nueva")({
+export const Route = createFileRoute("/_authenticated/partida/nueva")({
   component: NuevaPartida,
 });
 
