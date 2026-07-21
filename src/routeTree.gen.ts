@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
@@ -19,6 +20,7 @@ import { Route as AuthenticatedImportarRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedIaRouteImport } from './routes/_authenticated/ia'
 import { Route as AuthenticatedHistorialRouteImport } from './routes/_authenticated/historial'
 import { Route as AuthenticatedEstadisticasRouteImport } from './routes/_authenticated/estadisticas'
+import { Route as AuthenticatedCuentaRouteImport } from './routes/_authenticated/cuenta'
 import { Route as AuthenticatedBancoRouteImport } from './routes/_authenticated/banco'
 import { Route as AuthenticatedAjustesRouteImport } from './routes/_authenticated/ajustes'
 import { Route as SalaCodigoJugarRouteImport } from './routes/sala.$codigo.jugar'
@@ -30,6 +32,11 @@ import { Route as AuthenticatedSalaHostCodigoRouteImport } from './routes/_authe
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -78,6 +85,11 @@ const AuthenticatedEstadisticasRoute =
     path: '/estadisticas',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCuentaRoute = AuthenticatedCuentaRouteImport.update({
+  id: '/cuenta',
+  path: '/cuenta',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedBancoRoute = AuthenticatedBancoRouteImport.update({
   id: '/banco',
   path: '/banco',
@@ -120,9 +132,11 @@ const AuthenticatedSalaHostCodigoRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ajustes': typeof AuthenticatedAjustesRoute
   '/banco': typeof AuthenticatedBancoRoute
+  '/cuenta': typeof AuthenticatedCuentaRoute
   '/estadisticas': typeof AuthenticatedEstadisticasRoute
   '/historial': typeof AuthenticatedHistorialRoute
   '/ia': typeof AuthenticatedIaRoute
@@ -137,9 +151,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ajustes': typeof AuthenticatedAjustesRoute
   '/banco': typeof AuthenticatedBancoRoute
+  '/cuenta': typeof AuthenticatedCuentaRoute
   '/estadisticas': typeof AuthenticatedEstadisticasRoute
   '/historial': typeof AuthenticatedHistorialRoute
   '/ia': typeof AuthenticatedIaRoute
@@ -157,9 +173,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/ajustes': typeof AuthenticatedAjustesRoute
   '/_authenticated/banco': typeof AuthenticatedBancoRoute
+  '/_authenticated/cuenta': typeof AuthenticatedCuentaRoute
   '/_authenticated/estadisticas': typeof AuthenticatedEstadisticasRoute
   '/_authenticated/historial': typeof AuthenticatedHistorialRoute
   '/_authenticated/ia': typeof AuthenticatedIaRoute
@@ -178,9 +196,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/ajustes'
     | '/banco'
+    | '/cuenta'
     | '/estadisticas'
     | '/historial'
     | '/ia'
@@ -195,9 +215,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/ajustes'
     | '/banco'
+    | '/cuenta'
     | '/estadisticas'
     | '/historial'
     | '/ia'
@@ -214,9 +236,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_authenticated'
     | '/auth'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/_authenticated/ajustes'
     | '/_authenticated/banco'
+    | '/_authenticated/cuenta'
     | '/_authenticated/estadisticas'
     | '/_authenticated/historial'
     | '/_authenticated/ia'
@@ -234,6 +258,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SalaCodigoRoute: typeof SalaCodigoRouteWithChildren
 }
@@ -245,6 +270,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -310,6 +342,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEstadisticasRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/cuenta': {
+      id: '/_authenticated/cuenta'
+      path: '/cuenta'
+      fullPath: '/cuenta'
+      preLoaderRoute: typeof AuthenticatedCuentaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/banco': {
       id: '/_authenticated/banco'
       path: '/banco'
@@ -365,6 +404,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAjustesRoute: typeof AuthenticatedAjustesRoute
   AuthenticatedBancoRoute: typeof AuthenticatedBancoRoute
+  AuthenticatedCuentaRoute: typeof AuthenticatedCuentaRoute
   AuthenticatedEstadisticasRoute: typeof AuthenticatedEstadisticasRoute
   AuthenticatedHistorialRoute: typeof AuthenticatedHistorialRoute
   AuthenticatedIaRoute: typeof AuthenticatedIaRoute
@@ -380,6 +420,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAjustesRoute: AuthenticatedAjustesRoute,
   AuthenticatedBancoRoute: AuthenticatedBancoRoute,
+  AuthenticatedCuentaRoute: AuthenticatedCuentaRoute,
   AuthenticatedEstadisticasRoute: AuthenticatedEstadisticasRoute,
   AuthenticatedHistorialRoute: AuthenticatedHistorialRoute,
   AuthenticatedIaRoute: AuthenticatedIaRoute,
@@ -410,6 +451,7 @@ const SalaCodigoRouteWithChildren = SalaCodigoRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SalaCodigoRoute: SalaCodigoRouteWithChildren,
 }
