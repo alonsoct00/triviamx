@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedSincronizarRouteImport } from './routes/_authenticated/sincronizar'
 import { Route as AuthenticatedImportarRouteImport } from './routes/_authenticated/importar'
@@ -26,62 +28,73 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
-  id: '/_authenticated/',
-  path: '/',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedSincronizarRoute =
   AuthenticatedSincronizarRouteImport.update({
-    id: '/_authenticated/sincronizar',
+    id: '/sincronizar',
     path: '/sincronizar',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedImportarRoute = AuthenticatedImportarRouteImport.update({
-  id: '/_authenticated/importar',
+  id: '/importar',
   path: '/importar',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedIaRoute = AuthenticatedIaRouteImport.update({
-  id: '/_authenticated/ia',
+  id: '/ia',
   path: '/ia',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedHistorialRoute = AuthenticatedHistorialRouteImport.update({
-  id: '/_authenticated/historial',
+  id: '/historial',
   path: '/historial',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedEstadisticasRoute =
   AuthenticatedEstadisticasRouteImport.update({
-    id: '/_authenticated/estadisticas',
+    id: '/estadisticas',
     path: '/estadisticas',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedBancoRoute = AuthenticatedBancoRouteImport.update({
-  id: '/_authenticated/banco',
+  id: '/banco',
   path: '/banco',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAjustesRoute = AuthenticatedAjustesRouteImport.update({
-  id: '/_authenticated/ajustes',
+  id: '/ajustes',
   path: '/ajustes',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPartidaNuevaRoute =
   AuthenticatedPartidaNuevaRouteImport.update({
-    id: '/_authenticated/partida/nueva',
+    id: '/partida/nueva',
     path: '/partida/nueva',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedPartidaJugarRoute =
   AuthenticatedPartidaJugarRouteImport.update({
-    id: '/_authenticated/partida/jugar',
+    id: '/partida/jugar',
     path: '/partida/jugar',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof AuthenticatedIndexRoute
+  '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ajustes': typeof AuthenticatedAjustesRoute
   '/banco': typeof AuthenticatedBancoRoute
@@ -90,11 +103,11 @@ export interface FileRoutesByFullPath {
   '/ia': typeof AuthenticatedIaRoute
   '/importar': typeof AuthenticatedImportarRoute
   '/sincronizar': typeof AuthenticatedSincronizarRoute
-  '/': typeof AuthenticatedIndexRoute
   '/partida/jugar': typeof AuthenticatedPartidaJugarRoute
   '/partida/nueva': typeof AuthenticatedPartidaNuevaRoute
 }
 export interface FileRoutesByTo {
+  '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/ajustes': typeof AuthenticatedAjustesRoute
   '/banco': typeof AuthenticatedBancoRoute
@@ -109,6 +122,8 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/ajustes': typeof AuthenticatedAjustesRoute
   '/_authenticated/banco': typeof AuthenticatedBancoRoute
@@ -124,6 +139,8 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
+    | '/auth'
     | '/sitemap.xml'
     | '/ajustes'
     | '/banco'
@@ -132,11 +149,11 @@ export interface FileRouteTypes {
     | '/ia'
     | '/importar'
     | '/sincronizar'
-    | '/'
     | '/partida/jugar'
     | '/partida/nueva'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/auth'
     | '/sitemap.xml'
     | '/ajustes'
     | '/banco'
@@ -150,6 +167,8 @@ export interface FileRouteTypes {
     | '/partida/nueva'
   id:
     | '__root__'
+    | '/_authenticated'
+    | '/auth'
     | '/sitemap.xml'
     | '/_authenticated/ajustes'
     | '/_authenticated/banco'
@@ -164,7 +183,108 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/': {
+      id: '/_authenticated/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sincronizar': {
+      id: '/_authenticated/sincronizar'
+      path: '/sincronizar'
+      fullPath: '/sincronizar'
+      preLoaderRoute: typeof AuthenticatedSincronizarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/importar': {
+      id: '/_authenticated/importar'
+      path: '/importar'
+      fullPath: '/importar'
+      preLoaderRoute: typeof AuthenticatedImportarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia': {
+      id: '/_authenticated/ia'
+      path: '/ia'
+      fullPath: '/ia'
+      preLoaderRoute: typeof AuthenticatedIaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/historial': {
+      id: '/_authenticated/historial'
+      path: '/historial'
+      fullPath: '/historial'
+      preLoaderRoute: typeof AuthenticatedHistorialRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/estadisticas': {
+      id: '/_authenticated/estadisticas'
+      path: '/estadisticas'
+      fullPath: '/estadisticas'
+      preLoaderRoute: typeof AuthenticatedEstadisticasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/banco': {
+      id: '/_authenticated/banco'
+      path: '/banco'
+      fullPath: '/banco'
+      preLoaderRoute: typeof AuthenticatedBancoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ajustes': {
+      id: '/_authenticated/ajustes'
+      path: '/ajustes'
+      fullPath: '/ajustes'
+      preLoaderRoute: typeof AuthenticatedAjustesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/partida/nueva': {
+      id: '/_authenticated/partida/nueva'
+      path: '/partida/nueva'
+      fullPath: '/partida/nueva'
+      preLoaderRoute: typeof AuthenticatedPartidaNuevaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/partida/jugar': {
+      id: '/_authenticated/partida/jugar'
+      path: '/partida/jugar'
+      fullPath: '/partida/jugar'
+      preLoaderRoute: typeof AuthenticatedPartidaJugarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+  }
+}
+
+interface AuthenticatedRouteRouteChildren {
   AuthenticatedAjustesRoute: typeof AuthenticatedAjustesRoute
   AuthenticatedBancoRoute: typeof AuthenticatedBancoRoute
   AuthenticatedEstadisticasRoute: typeof AuthenticatedEstadisticasRoute
@@ -177,90 +297,7 @@ export interface RootRouteChildren {
   AuthenticatedPartidaNuevaRoute: typeof AuthenticatedPartidaNuevaRoute
 }
 
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/': {
-      id: '/_authenticated/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/sincronizar': {
-      id: '/_authenticated/sincronizar'
-      path: '/sincronizar'
-      fullPath: '/sincronizar'
-      preLoaderRoute: typeof AuthenticatedSincronizarRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/importar': {
-      id: '/_authenticated/importar'
-      path: '/importar'
-      fullPath: '/importar'
-      preLoaderRoute: typeof AuthenticatedImportarRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/ia': {
-      id: '/_authenticated/ia'
-      path: '/ia'
-      fullPath: '/ia'
-      preLoaderRoute: typeof AuthenticatedIaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/historial': {
-      id: '/_authenticated/historial'
-      path: '/historial'
-      fullPath: '/historial'
-      preLoaderRoute: typeof AuthenticatedHistorialRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/estadisticas': {
-      id: '/_authenticated/estadisticas'
-      path: '/estadisticas'
-      fullPath: '/estadisticas'
-      preLoaderRoute: typeof AuthenticatedEstadisticasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/banco': {
-      id: '/_authenticated/banco'
-      path: '/banco'
-      fullPath: '/banco'
-      preLoaderRoute: typeof AuthenticatedBancoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/ajustes': {
-      id: '/_authenticated/ajustes'
-      path: '/ajustes'
-      fullPath: '/ajustes'
-      preLoaderRoute: typeof AuthenticatedAjustesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/partida/nueva': {
-      id: '/_authenticated/partida/nueva'
-      path: '/partida/nueva'
-      fullPath: '/partida/nueva'
-      preLoaderRoute: typeof AuthenticatedPartidaNuevaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/partida/jugar': {
-      id: '/_authenticated/partida/jugar'
-      path: '/partida/jugar'
-      fullPath: '/partida/jugar'
-      preLoaderRoute: typeof AuthenticatedPartidaJugarRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-  }
-}
-
-const rootRouteChildren: RootRouteChildren = {
-  SitemapDotxmlRoute: SitemapDotxmlRoute,
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAjustesRoute: AuthenticatedAjustesRoute,
   AuthenticatedBancoRoute: AuthenticatedBancoRoute,
   AuthenticatedEstadisticasRoute: AuthenticatedEstadisticasRoute,
@@ -271,6 +308,15 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedPartidaJugarRoute: AuthenticatedPartidaJugarRoute,
   AuthenticatedPartidaNuevaRoute: AuthenticatedPartidaNuevaRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
