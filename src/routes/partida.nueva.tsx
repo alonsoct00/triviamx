@@ -1,9 +1,9 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { CATEGORIAS, NIVELES, TIEMPOS } from "@/lib/categorias";
 import { ArrowLeft, Play } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { useSettings } from "@/lib/settings";
 
 export const Route = createFileRoute("/partida/nueva")({
   component: NuevaPartida,
@@ -11,10 +11,17 @@ export const Route = createFileRoute("/partida/nueva")({
 
 function NuevaPartida() {
   const nav = useNavigate();
+  const [settings] = useSettings();
   const [categoria, setCategoria] = useState<string>("");
   const [nivel, setNivel] = useState<string>("");
   const [cantidad, setCantidad] = useState<number>(10);
   const [tiempo, setTiempo] = useState<number>(10);
+
+  // Apply saved defaults once
+  useEffect(() => {
+    setCantidad(settings.cantidadDefault);
+    setTiempo(settings.tiempoDefault);
+  }, [settings.cantidadDefault, settings.tiempoDefault]);
 
   const start = () => {
     const params = new URLSearchParams();
