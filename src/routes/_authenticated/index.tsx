@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Play, Library, Sparkles, History, BarChart3, Settings, RefreshCw, Globe } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { Play, Library, Sparkles, History, BarChart3, Settings, RefreshCw, Globe, Users } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { contarPreguntas } from "@/lib/preguntas.functions";
 
