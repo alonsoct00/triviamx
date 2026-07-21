@@ -39,6 +39,20 @@ function Home() {
         </div>
       </Link>
 
+      <Link
+        to="/sala/nueva"
+        className="mb-4 flex w-full items-center justify-between rounded-2xl border border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-transparent p-5 active:scale-[0.98]"
+      >
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-400">Kahoot-style</p>
+          <p className="mt-0.5 font-display text-xl font-bold uppercase tracking-tight text-white">Jugar en grupo</p>
+          <p className="mt-0.5 text-[11px] text-zinc-400">Comparte un link · sin registro</p>
+        </div>
+        <div className="flex size-12 items-center justify-center rounded-full bg-cyan-500 text-black">
+          <Users className="size-5" />
+        </div>
+      </Link>
+
       <div className="grid grid-cols-2 gap-3">
         <Tile to="/banco" icon={<Library className="size-5" />} label="Banco de preguntas" hint="Filtra y edita" />
         <Tile to="/ia" icon={<Sparkles className="size-5" />} label="Generar con IA" hint="Crea preguntas nuevas" accent="text-purple-400" />
