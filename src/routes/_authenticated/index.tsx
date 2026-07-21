@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Play, Library, Sparkles, History, BarChart3, Settings, RefreshCw, Globe } from "lucide-react";
+import { Play, Library, Sparkles, History, BarChart3, Settings, RefreshCw, Globe, Users } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { contarPreguntas } from "@/lib/preguntas.functions";
 
@@ -36,6 +36,20 @@ function Home() {
         </div>
         <div className="flex size-12 items-center justify-center rounded-full bg-black text-white">
           <Play className="size-5" fill="currentColor" />
+        </div>
+      </Link>
+
+      <Link
+        to="/sala/nueva"
+        className="mb-4 flex w-full items-center justify-between rounded-2xl border border-cyan-500/40 bg-gradient-to-br from-cyan-500/15 to-transparent p-5 active:scale-[0.98]"
+      >
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-cyan-400">Kahoot-style</p>
+          <p className="mt-0.5 font-display text-xl font-bold uppercase tracking-tight text-white">Jugar en grupo</p>
+          <p className="mt-0.5 text-[11px] text-zinc-400">Comparte un link · sin registro</p>
+        </div>
+        <div className="flex size-12 items-center justify-center rounded-full bg-cyan-500 text-black">
+          <Users className="size-5" />
         </div>
       </Link>
 

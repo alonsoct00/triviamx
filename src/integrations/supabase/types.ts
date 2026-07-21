@@ -167,6 +167,143 @@ export type Database = {
         }
         Relationships: []
       }
+      sala_jugadores: {
+        Row: {
+          correctas: number
+          created_at: string
+          id: string
+          incorrectas: number
+          nickname: string
+          puntos: number
+          sala_id: string
+        }
+        Insert: {
+          correctas?: number
+          created_at?: string
+          id?: string
+          incorrectas?: number
+          nickname: string
+          puntos?: number
+          sala_id: string
+        }
+        Update: {
+          correctas?: number
+          created_at?: string
+          id?: string
+          incorrectas?: number
+          nickname?: string
+          puntos?: number
+          sala_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sala_jugadores_sala_id_fkey"
+            columns: ["sala_id"]
+            isOneToOne: false
+            referencedRelation: "salas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sala_respuestas: {
+        Row: {
+          correcta: boolean
+          created_at: string
+          id: string
+          jugador_id: string
+          orden: number
+          puntos: number
+          respuesta: string
+          sala_id: string
+          segundos: number | null
+        }
+        Insert: {
+          correcta: boolean
+          created_at?: string
+          id?: string
+          jugador_id: string
+          orden: number
+          puntos?: number
+          respuesta: string
+          sala_id: string
+          segundos?: number | null
+        }
+        Update: {
+          correcta?: boolean
+          created_at?: string
+          id?: string
+          jugador_id?: string
+          orden?: number
+          puntos?: number
+          respuesta?: string
+          sala_id?: string
+          segundos?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sala_respuestas_jugador_id_fkey"
+            columns: ["jugador_id"]
+            isOneToOne: false
+            referencedRelation: "sala_jugadores"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sala_respuestas_sala_id_fkey"
+            columns: ["sala_id"]
+            isOneToOne: false
+            referencedRelation: "salas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      salas: {
+        Row: {
+          cantidad: number
+          categoria: string | null
+          codigo: string
+          created_at: string
+          estado: string
+          host_id: string
+          id: string
+          nivel: string | null
+          orden_actual: number
+          pregunta_ids: string[]
+          pregunta_started_at: string | null
+          tiempo_segundos: number
+          updated_at: string
+        }
+        Insert: {
+          cantidad?: number
+          categoria?: string | null
+          codigo: string
+          created_at?: string
+          estado?: string
+          host_id: string
+          id?: string
+          nivel?: string | null
+          orden_actual?: number
+          pregunta_ids?: string[]
+          pregunta_started_at?: string | null
+          tiempo_segundos?: number
+          updated_at?: string
+        }
+        Update: {
+          cantidad?: number
+          categoria?: string | null
+          codigo?: string
+          created_at?: string
+          estado?: string
+          host_id?: string
+          id?: string
+          nivel?: string | null
+          orden_actual?: number
+          pregunta_ids?: string[]
+          pregunta_started_at?: string | null
+          tiempo_segundos?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
