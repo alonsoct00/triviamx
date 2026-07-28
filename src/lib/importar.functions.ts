@@ -38,6 +38,8 @@ export const importarDesdeURL = createServerFn({ method: "POST" })
     let url: URL;
     try { url = new URL(data.url); } catch { throw new Error("URL inválida"); }
     if (!/^https?:$/.test(url.protocol)) throw new Error("Solo http(s)");
+    assertHostPublico(url);
+
 
     const res = await fetch(url.toString(), {
       headers: {
