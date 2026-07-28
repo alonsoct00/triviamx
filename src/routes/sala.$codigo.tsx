@@ -43,7 +43,7 @@ function JoinSala() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+    <main className="min-h-screen bg-zinc-950 text-zinc-100">
       <div className="mx-auto flex min-h-screen max-w-md flex-col items-center justify-center px-6 py-10">
         <div className="mb-8 flex size-16 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400">
           <Users className="size-8" />

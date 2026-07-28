@@ -54,7 +54,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </button>
           </div>
         </header>
-        {children}
+        <main>{children}</main>
       </div>
       <BottomNav />
     </div>

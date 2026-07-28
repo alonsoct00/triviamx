@@ -47,7 +47,7 @@ function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center px-4 font-sans">
+    <main className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center px-4 font-sans">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
           <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Restablecer</p>
