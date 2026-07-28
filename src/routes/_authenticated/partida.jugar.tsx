@@ -139,7 +139,7 @@ function Jugar() {
           partida_id: partidaId,
           pregunta_id: preguntaActual.id,
           orden: idx + 1,
-          resultado: resultado ?? "sin_responder",
+          resultado: resultado ?? "omitida",
           segundos_usados: usados,
         },
       }).catch(() => {});

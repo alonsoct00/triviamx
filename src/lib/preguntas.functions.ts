@@ -46,18 +46,37 @@ export const getRandomPreguntas = createServerFn({ method: "POST" })
       return rows ?? [];
     };
 
-    let rows = await fetchPool(true, true);
-    if (!rows.length && nivs.length) rows = await fetchPool(true, false);
-    if (!rows.length) rows = await fetchPool(false, false);
-
+    const cantidad = data.cantidad ?? 10;
     const excl = new Set(data.excluir ?? []);
-    const pool = rows.filter((r) => !excl.has(r.id));
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
-    return pool.slice(0, data.cantidad ?? 10) as Row[];
+
+    // Se completa el cupo relajando filtros progresivamente (nivel → categoría)
+    const seen = new Set<string>(excl);
+    const pool: Awaited<ReturnType<typeof fetchPool>> = [];
+    const shuffle = <T,>(arr: T[]) => {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    };
+    const addFrom = async (useCats: boolean, useNivs: boolean) => {
+      if (pool.length >= cantidad) return;
+      const rows = shuffle(await fetchPool(useCats, useNivs));
+      for (const r of rows) {
+        if (seen.has(r.id)) continue;
+        seen.add(r.id);
+        pool.push(r);
+        if (pool.length >= cantidad) break;
+      }
+    };
+    await addFrom(true, true);
+    if (pool.length < cantidad && nivs.length) await addFrom(true, false);
+    if (pool.length < cantidad) await addFrom(false, false);
+
+    return pool.slice(0, cantidad) as Row[];
+
   });
+
 
 export const contarPreguntas = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
