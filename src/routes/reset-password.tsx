@@ -100,6 +100,6 @@ function ResetPasswordPage() {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

@@ -82,6 +82,6 @@ function JoinSala() {
           </form>
         )}
       </div>
-    </div>
+    </main>
   );
 }

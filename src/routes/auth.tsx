@@ -215,6 +215,6 @@ function AuthPage() {
 
         <p className="mt-4 text-center text-[11px] text-zinc-400">El primer usuario registrado será administrador.</p>
       </div>
-    </div>
+    </main>
   );
 }
