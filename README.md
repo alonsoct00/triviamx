@@ -1,4 +1,4 @@
-# Trivia Master MX
+# Trivia MX
 
 Web App **Mobile First** en español (México) para administrar concursos de preguntas y respuestas al estilo Preguntados, Jeopardy!, Pasapalabra y ¿Quién quiere ser millonario?
 
@@ -26,7 +26,7 @@ La app está pensada para el **moderador** (árbitro/conductor) que lee las preg
 ## Stack técnico
 
 - **Frontend**: React 19 + TanStack Start v1 (SSR/SSG) + Vite 7
-- **Estilos**: Tailwind CSS v4 con tokens semánticos (dirección de diseño *Neon Console*: dark mode, acentos neón cian/magenta/lima, tipografía Space Grotesk)
+- **Estilos**: Tailwind CSS v4 con tokens semánticos (dirección de diseño _Neon Console_: dark mode, acentos neón cian/magenta/lima, tipografía Space Grotesk)
 - **Ruteo**: file-based routing en `src/routes/`
 - **Backend**: Lovable Cloud (Supabase) — Postgres + Auth + RLS
 - **Runtime servidor**: Cloudflare Workers (edge) vía `createServerFn` de TanStack
