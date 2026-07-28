@@ -128,7 +128,7 @@ Reglas:
         origen: "importado",
         nivel_confianza: 70,
       };
-    }).filter((r) => r.pregunta.length > 4 && r.respuesta.length > 0);
+    }).filter((r) => r.pregunta.length > 4 && r.respuesta.length > 0).slice(0, max);
 
     if (!rows.length) return { generadas: 0, preguntas: [] };
 
