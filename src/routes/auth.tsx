@@ -4,11 +4,21 @@ import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { LogIn, UserPlus, Loader2, Mail, ArrowLeft } from "lucide-react";
 
+function safeNext(next?: string) {
+  return next && next.startsWith("/") && !next.startsWith("//") ? next : null;
+}
+
 export const Route = createFileRoute("/auth")({
   ssr: false,
-  beforeLoad: async () => {
+  validateSearch: (s: Record<string, unknown>) => ({
+    next: typeof s.next === "string" ? s.next : undefined,
+  }),
+  beforeLoad: async ({ search }) => {
     const { data } = await supabase.auth.getSession();
-    if (data.session) throw redirect({ to: "/" });
+    if (data.session) {
+      const next = safeNext(search.next);
+      throw redirect(next ? { href: next } : { to: "/" });
+    }
   },
   component: AuthPage,
 });
@@ -17,6 +27,9 @@ type Mode = "signin" | "signup" | "forgot";
 
 function AuthPage() {
   const navigate = useNavigate();
+  const { next: rawNext } = Route.useSearch();
+  const next = safeNext(rawNext);
+  const goHome = () => (next ? (window.location.href = next) : navigate({ to: "/" }));
   const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,15 +46,15 @@ function AuthPage() {
       if (mode === "signin") {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate({ to: "/" });
+        goHome();
       } else if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: window.location.origin },
+          options: { emailRedirectTo: next ? `${window.location.origin}${next}` : window.location.origin },
         });
         if (error) throw error;
-        navigate({ to: "/" });
+        goHome();
       } else {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${window.location.origin}/reset-password`,
@@ -61,10 +74,10 @@ function AuthPage() {
     setLoading(true);
     try {
       const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin,
+        redirect_uri: next ? `${window.location.origin}${next}` : window.location.origin,
       });
       if (result.error) throw result.error;
-      if (!result.redirected) navigate({ to: "/" });
+      if (!result.redirected) goHome();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Error con Google");
       setLoading(false);
