@@ -31,6 +31,7 @@ import { Route as AuthenticatedSalaNuevaRouteImport } from './routes/_authentica
 import { Route as AuthenticatedPartidaNuevaRouteImport } from './routes/_authenticated/partida.nueva'
 import { Route as AuthenticatedPartidaJugarRouteImport } from './routes/_authenticated/partida.jugar'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as AuthenticatedSalaHostCodigoRouteImport } from './routes/_authenticated/sala.host.$codigo'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -149,6 +150,11 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedSalaHostCodigoRoute =
   AuthenticatedSalaHostCodigoRouteImport.update({
     id: '/sala/host/$codigo',
@@ -173,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/importar': typeof AuthenticatedImportarRoute
   '/sincronizar': typeof AuthenticatedSincronizarRoute
   '/sala/$codigo': typeof SalaCodigoRouteWithChildren
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/partida/jugar': typeof AuthenticatedPartidaJugarRoute
   '/partida/nueva': typeof AuthenticatedPartidaNuevaRoute
@@ -197,6 +204,7 @@ export interface FileRoutesByTo {
   '/sincronizar': typeof AuthenticatedSincronizarRoute
   '/sala/$codigo': typeof SalaCodigoRouteWithChildren
   '/': typeof AuthenticatedIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/partida/jugar': typeof AuthenticatedPartidaJugarRoute
   '/partida/nueva': typeof AuthenticatedPartidaNuevaRoute
@@ -223,6 +231,7 @@ export interface FileRoutesById {
   '/_authenticated/sincronizar': typeof AuthenticatedSincronizarRoute
   '/sala/$codigo': typeof SalaCodigoRouteWithChildren
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/_authenticated/partida/jugar': typeof AuthenticatedPartidaJugarRoute
   '/_authenticated/partida/nueva': typeof AuthenticatedPartidaNuevaRoute
@@ -249,6 +258,7 @@ export interface FileRouteTypes {
     | '/importar'
     | '/sincronizar'
     | '/sala/$codigo'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/partida/jugar'
     | '/partida/nueva'
@@ -273,6 +283,7 @@ export interface FileRouteTypes {
     | '/sincronizar'
     | '/sala/$codigo'
     | '/'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/partida/jugar'
     | '/partida/nueva'
@@ -298,6 +309,7 @@ export interface FileRouteTypes {
     | '/_authenticated/sincronizar'
     | '/sala/$codigo'
     | '/_authenticated/'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/_authenticated/partida/jugar'
     | '/_authenticated/partida/nueva'
@@ -315,6 +327,7 @@ export interface RootRouteChildren {
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   SalaCodigoRoute: typeof SalaCodigoRouteWithChildren
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -474,6 +487,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/sala/host/$codigo': {
       id: '/_authenticated/sala/host/$codigo'
       path: '/sala/host/$codigo'
@@ -541,6 +561,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   SalaCodigoRoute: SalaCodigoRouteWithChildren,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
