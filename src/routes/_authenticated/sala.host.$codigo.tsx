@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import QRCode from "qrcode";
 import { AppShell } from "@/components/AppShell";
 import { estadoSala, iniciarSala, revelarSala, siguienteSala, cerrarSala } from "@/lib/sala.functions";
-import { ArrowLeft, Copy, Play, SkipForward, Eye, Square, Trophy } from "lucide-react";
+import { ArrowLeft, Copy, Play, SkipForward, Eye, Square, Trophy, Share2, QrCode } from "lucide-react";
+
 
 export const Route = createFileRoute("/_authenticated/sala/host/$codigo")({
   component: SalaHost,
@@ -19,11 +21,38 @@ function SalaHost() {
   });
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [qrOpen, setQrOpen] = useState(false);
+  const [qrSrc, setQrSrc] = useState<string | null>(null);
 
   const link = useMemo(
     () => (typeof window !== "undefined" ? `${window.location.origin}/sala/${codigo}` : `/sala/${codigo}`),
     [codigo],
   );
+
+  useEffect(() => {
+    if (!qrOpen || qrSrc) return;
+    QRCode.toDataURL(link, { width: 512, margin: 1, color: { dark: "#000000", light: "#ffffff" } })
+      .then(setQrSrc)
+      .catch(() => setQrSrc(null));
+  }, [qrOpen, qrSrc, link]);
+
+  const compartir = async () => {
+    const datos = {
+      title: "Trivia Master MX",
+      text: `Únete a mi sala de trivia con el código ${codigo}`,
+      url: link,
+    };
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share(datos);
+        return;
+      } catch {
+        return;
+      }
+    }
+    await copiar();
+  };
+
 
   async function accion(fn: () => Promise<unknown>) {
     setBusy(true);
@@ -66,7 +95,35 @@ function SalaHost() {
             <Copy className="size-3.5" /> {copied ? "¡Copiado!" : "Copiar"}
           </span>
         </button>
+
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          <button
+            onClick={compartir}
+            className="flex items-center justify-center gap-2 rounded-xl bg-cyan-500 px-3 py-2.5 text-xs font-bold uppercase text-black"
+          >
+            <Share2 className="size-4" /> Compartir
+          </button>
+          <button
+            onClick={() => setQrOpen((v) => !v)}
+            className="flex items-center justify-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/70 px-3 py-2.5 text-xs font-bold uppercase text-zinc-200"
+            aria-expanded={qrOpen}
+          >
+            <QrCode className="size-4" /> {qrOpen ? "Ocultar QR" : "Ver QR"}
+          </button>
+        </div>
+
+        {qrOpen && (
+          <div className="mt-3 flex flex-col items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/70 p-4">
+            {qrSrc ? (
+              <img src={qrSrc} alt={`Código QR para unirse a la sala ${sala.codigo}`} className="size-48 rounded-lg" />
+            ) : (
+              <p className="text-xs text-zinc-400">Generando QR…</p>
+            )}
+            <p className="text-center text-[11px] text-zinc-400">Escanea para entrar sin registrarte</p>
+          </div>
+        )}
       </section>
+
 
       <section className="mb-5 rounded-xl border border-zinc-800 bg-zinc-900 p-4">
         <div className="mb-2 flex items-center justify-between">
