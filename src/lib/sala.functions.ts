@@ -207,7 +207,7 @@ export const unirseSala = createServerFn({ method: "POST" })
       .select()
       .single();
     if (error) throw new Error(error.message);
-    return { jugador_id: jugador.id, sala_id: sala.id };
+    return { jugador_id: jugador.id, sala_id: sala.id, token: jugador.token as string };
   });
 
 // Estado público — omite la respuesta correcta salvo cuando ya se reveló
@@ -290,7 +290,7 @@ export const estadoSala = createServerFn({ method: "GET" })
   });
 
 export const enviarRespuestaSala = createServerFn({ method: "POST" })
-  .inputValidator((i: { codigo: string; jugador_id: string; respuesta: string }) => i)
+  .inputValidator((i: { codigo: string; jugador_id: string; token: string; respuesta: string }) => i)
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: sala } = await supabaseAdmin
@@ -300,6 +300,16 @@ export const enviarRespuestaSala = createServerFn({ method: "POST" })
       .maybeSingle();
     if (!sala) throw new Error("Sala no encontrada.");
     if (sala.estado !== "en_juego") throw new Error("La pregunta ya no acepta respuestas.");
+
+    // El jugador debe pertenecer a esta sala y presentar su token privado
+    const { data: jugadorAuth } = await supabaseAdmin
+      .from("sala_jugadores")
+      .select("id, puntos, correctas, incorrectas")
+      .eq("id", data.jugador_id)
+      .eq("sala_id", sala.id)
+      .eq("token", data.token)
+      .maybeSingle();
+    if (!jugadorAuth) throw new Error("Jugador no válido para esta sala.");
     const preguntaId = sala.pregunta_ids[sala.orden_actual];
     const { data: p } = await supabaseAdmin
       .from("preguntas")
@@ -331,11 +341,7 @@ export const enviarRespuestaSala = createServerFn({ method: "POST" })
       throw new Error(insErr.message);
     }
 
-    const { data: jugador } = await supabaseAdmin
-      .from("sala_jugadores")
-      .select("puntos, correctas, incorrectas")
-      .eq("id", data.jugador_id)
-      .maybeSingle();
+    const jugador = jugadorAuth;
     if (jugador) {
       await supabaseAdmin
         .from("sala_jugadores")
