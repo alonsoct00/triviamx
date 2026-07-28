@@ -43,17 +43,33 @@ export const crearSala = createServerFn({ method: "POST" })
       if (error) throw new Error(error.message);
       return rows ?? [];
     };
-    let pool = await fetchPool(true, true);
-    if (!pool.length && nivs.length) pool = await fetchPool(true, false);
-    if (!pool.length) pool = await fetchPool(false, false);
+    const shuffle = <T,>(arr: T[]) => {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    };
+
+    const pool: { id: string }[] = [];
+    const vistos = new Set<string>();
+    const addFrom = async (useCats: boolean, useNivs: boolean) => {
+      if (pool.length >= data.cantidad) return;
+      const rows = shuffle(await fetchPool(useCats, useNivs));
+      for (const r of rows) {
+        if (vistos.has(r.id)) continue;
+        vistos.add(r.id);
+        pool.push(r);
+        if (pool.length >= data.cantidad) break;
+      }
+    };
+    await addFrom(true, true);
+    if (pool.length < data.cantidad && nivs.length) await addFrom(true, false);
+    if (pool.length < data.cantidad) await addFrom(false, false);
     if (!pool.length) throw new Error("No hay preguntas disponibles.");
 
-    // shuffle + slice
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
     const preguntaIds = pool.slice(0, data.cantidad).map((r) => r.id);
+
 
     // código único
     let codigo = generarCodigo();
