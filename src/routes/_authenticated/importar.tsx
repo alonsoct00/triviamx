@@ -84,7 +84,7 @@ function Importar() {
 
       <div className="mb-5">
         <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Máximo por URL ({max})</p>
-        <input type="range" min={5} max={40} value={max} onChange={(e) => setMax(Number(e.target.value))} className="w-full accent-cyan-500" />
+        <input type="range" min={5} max={200} step={5} value={max} onChange={(e) => setMax(Number(e.target.value))} className="w-full accent-cyan-500" />
       </div>
 
       <button
