@@ -7,7 +7,7 @@ import { contarPreguntas } from "@/lib/preguntas.functions";
 export const Route = createFileRoute("/_authenticated/")({
   component: Home,
   head: () => ({
-    meta: [{ title: "Trivia Master MX — Panel del Moderador" }],
+    meta: [{ title: "Trivia MX — Panel del Moderador" }],
   }),
 });
 
@@ -22,7 +22,9 @@ function Home() {
     <AppShell>
       <section className="mb-6 rounded-2xl border border-zinc-800 bg-gradient-to-br from-blue-600/10 to-transparent p-5">
         <p className="text-[10px] font-bold uppercase tracking-widest text-blue-400">Banco activo</p>
-        <p className="mt-1 font-display text-3xl font-bold">{total.toLocaleString("es-MX")} <span className="text-sm font-medium text-zinc-400">preguntas</span></p>
+        <p className="mt-1 font-display text-3xl font-bold">
+          {total.toLocaleString("es-MX")} <span className="text-sm font-medium text-zinc-400">preguntas</span>
+        </p>
         <p className="mt-1 text-xs text-zinc-500">Español (México) · Actualizable con IA</p>
       </section>
 
@@ -55,11 +57,34 @@ function Home() {
 
       <div className="grid grid-cols-2 gap-3">
         <Tile to="/banco" icon={<Library className="size-5" />} label="Banco de preguntas" hint="Filtra y edita" />
-        <Tile to="/ia" icon={<Sparkles className="size-5" />} label="Generar con IA" hint="Crea preguntas nuevas" accent="text-purple-400" />
+        <Tile
+          to="/ia"
+          icon={<Sparkles className="size-5" />}
+          label="Generar con IA"
+          hint="Crea preguntas nuevas"
+          accent="text-purple-400"
+        />
         <Tile to="/historial" icon={<History className="size-5" />} label="Historial" hint="Partidas anteriores" />
-        <Tile to="/estadisticas" icon={<BarChart3 className="size-5" />} label="Estadísticas" hint="Uso por categoría" />
-        <Tile to="/importar" icon={<Globe className="size-5" />} label="Importar de la web" hint="Scraping + IA" accent="text-cyan-400" />
-        <Tile to="/sincronizar" icon={<RefreshCw className="size-5" />} label="Sincronizar" hint="Datos actualizados" accent="text-cyan-400" />
+        <Tile
+          to="/estadisticas"
+          icon={<BarChart3 className="size-5" />}
+          label="Estadísticas"
+          hint="Uso por categoría"
+        />
+        <Tile
+          to="/importar"
+          icon={<Globe className="size-5" />}
+          label="Importar de la web"
+          hint="Scraping + IA"
+          accent="text-cyan-400"
+        />
+        <Tile
+          to="/sincronizar"
+          icon={<RefreshCw className="size-5" />}
+          label="Sincronizar"
+          hint="Datos actualizados"
+          accent="text-cyan-400"
+        />
 
         <Tile to="/ajustes" icon={<Settings className="size-5" />} label="Configuración" hint="Tiempo, sonido, tema" />
       </div>
