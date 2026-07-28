@@ -1,0 +1,2 @@
+ALTER TABLE public.preguntas DROP CONSTRAINT IF EXISTS preguntas_origen_check;
+ALTER TABLE public.preguntas ADD CONSTRAINT preguntas_origen_check CHECK (origen = ANY (ARRAY['seed'::text, 'manual'::text, 'ia'::text, 'sync'::text, 'importado'::text]));
