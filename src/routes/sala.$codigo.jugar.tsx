@@ -63,11 +63,12 @@ function JugarSala() {
   }, [q.data, ahora]);
 
   async function responder(r: string) {
-    if (!jugadorId || enviando || respuestaLocal) return;
+    const token = typeof window !== "undefined" ? sessionStorage.getItem(`sala:${codigo}:token`) : null;
+    if (!jugadorId || !token || enviando || respuestaLocal) return;
     setRespuestaLocal(r);
     setEnviando(true);
     try {
-      const res = await enviarRespuestaSala({ data: { codigo, jugador_id: jugadorId, respuesta: r } });
+      const res = await enviarRespuestaSala({ data: { codigo, jugador_id: jugadorId, token, respuesta: r } });
       setResultado(res);
     } catch (e) {
       setResultado({ correcta: false, puntos: 0 });
