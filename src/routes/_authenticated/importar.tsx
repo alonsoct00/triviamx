@@ -16,6 +16,7 @@ const PRESETS: { url: string; label: string; categoria: string; nivel: string }[
   { url: "https://www.ejemplos.co/preguntas-de-cultura-general/", label: "Preguntas de cultura general", categoria: "cultura_general", nivel: "media" },
   { url: "https://psicologiaymente.com/cultura/preguntas-cultura-general", label: "Psicología y Mente — cultura general", categoria: "cultura_general", nivel: "media" },
   { url: "https://wordwall.net/es/resource/14992155/el-rival-m%C3%A1s-d%C3%A9bil", label: "El Rival Más Débil (Wordwall)", categoria: "cultura_general", nivel: "media" },
+  { url: "https://www.cosmopolitan.com/es/consejos-planes/familia-amigos/a40706432/200-preguntas-de-cultura-general-y-su-respuesta/", label: "Cosmopolitan — 200+ preguntas de cultura general", categoria: "cultura_general", nivel: "media" },
 ];
 
 function Importar() {
