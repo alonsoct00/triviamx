@@ -37,7 +37,7 @@ export const registrarRespuesta = createServerFn({ method: "POST" })
       partida_id: string;
       pregunta_id: string;
       orden: number;
-      resultado: "correcta" | "incorrecta" | "sin_responder";
+      resultado: "correcta" | "incorrecta" | "omitida";
       segundos_usados?: number;
     }) => i,
   )
