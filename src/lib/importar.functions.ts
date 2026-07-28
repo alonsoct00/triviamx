@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { assertHostPublico, fetchSeguro } from "./url-guard";
 
 
 const CATEGORIAS_VALIDAS = new Set([
@@ -38,8 +39,10 @@ export const importarDesdeURL = createServerFn({ method: "POST" })
     let url: URL;
     try { url = new URL(data.url); } catch { throw new Error("URL inválida"); }
     if (!/^https?:$/.test(url.protocol)) throw new Error("Solo http(s)");
+    assertHostPublico(url);
 
-    const res = await fetch(url.toString(), {
+
+    const res = await fetchSeguro(url, {
       headers: {
         "user-agent": "Mozilla/5.0 (TriviaMasterMX) Chrome/125 Safari/537.36",
         "accept": "text/html,application/xhtml+xml",

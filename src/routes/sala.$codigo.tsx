@@ -30,8 +30,9 @@ function JoinSala() {
     setLoading(true);
     setError(null);
     try {
-      const { jugador_id } = await unirseSala({ data: { codigo, nickname } });
+      const { jugador_id, token } = await unirseSala({ data: { codigo, nickname } });
       sessionStorage.setItem(`sala:${codigo}:jugador`, jugador_id);
+      sessionStorage.setItem(`sala:${codigo}:token`, token);
       sessionStorage.setItem(`sala:${codigo}:nick`, nickname);
       nav({ to: "/sala/$codigo/jugar", params: { codigo } });
     } catch (e) {

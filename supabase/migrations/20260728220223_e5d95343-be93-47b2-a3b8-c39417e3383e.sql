@@ -1,0 +1,1 @@
+ALTER TABLE public.sala_jugadores ADD COLUMN IF NOT EXISTS token uuid NOT NULL DEFAULT gen_random_uuid();
