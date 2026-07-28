@@ -176,6 +176,7 @@ export type Database = {
           nickname: string
           puntos: number
           sala_id: string
+          token: string
         }
         Insert: {
           correctas?: number
@@ -185,6 +186,7 @@ export type Database = {
           nickname: string
           puntos?: number
           sala_id: string
+          token?: string
         }
         Update: {
           correctas?: number
@@ -194,6 +196,7 @@ export type Database = {
           nickname?: string
           puntos?: number
           sala_id?: string
+          token?: string
         }
         Relationships: [
           {
