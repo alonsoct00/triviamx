@@ -33,11 +33,9 @@ export function AppShell({ children }: { children: ReactNode }) {
               )}
             </span>
             <h1 className="font-display text-xl font-bold tracking-tight">
-              TRIVIA MASTER <span className="text-blue-500">MX</span>
+              TRIVIA<span className="text-blue-500">MX</span>
             </h1>
-            {user?.email && (
-              <span className="truncate text-[10px] text-zinc-500">{user.email}</span>
-            )}
+            {user?.email && <span className="truncate text-[10px] text-zinc-500">{user.email}</span>}
           </div>
           <div className="flex items-center gap-2">
             <Link
