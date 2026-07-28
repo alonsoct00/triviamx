@@ -49,15 +49,28 @@ function Ajustes() {
       </section>
 
       <ul className="space-y-3">
-        <Toggle label="Vibración" hint="Al acabarse el tiempo" value={s.vibracion} onChange={(v) => update({ vibracion: v })} />
-        <Toggle label="Sonidos" hint="Beep al iniciar/terminar el cronómetro" value={s.sonido} onChange={(v) => update({ sonido: v })} />
-        <Toggle label="Modo presentador" hint="Entrar automáticamente en pantalla completa al iniciar partida" value={s.presentador} onChange={(v) => update({ presentador: v })} />
+        <Toggle
+          label="Vibración"
+          hint="Al acabarse el tiempo"
+          value={s.vibracion}
+          onChange={(v) => update({ vibracion: v })}
+        />
+        <Toggle
+          label="Sonidos"
+          hint="Beep al iniciar/terminar el cronómetro"
+          value={s.sonido}
+          onChange={(v) => update({ sonido: v })}
+        />
+        <Toggle
+          label="Modo presentador"
+          hint="Entrar automáticamente en pantalla completa al iniciar partida"
+          value={s.presentador}
+          onChange={(v) => update({ presentador: v })}
+        />
         <Row label="Tema" value="Oscuro (Neon Console)" />
         <Row label="Idioma" value="Español (México)" />
       </ul>
-      <p className="mt-6 text-center text-[10px] uppercase tracking-widest text-zinc-600">
-        Trivia Master MX · v0.2
-      </p>
+      <p className="mt-6 text-center text-[10px] uppercase tracking-widest text-zinc-600">Trivia MX · v0.2</p>
     </AppShell>
   );
 }
@@ -71,7 +84,17 @@ function Row({ label, value }: { label: string; value: string }) {
   );
 }
 
-function Toggle({ label, hint, value, onChange }: { label: string; hint?: string; value: boolean; onChange: (v: boolean) => void }) {
+function Toggle({
+  label,
+  hint,
+  value,
+  onChange,
+}: {
+  label: string;
+  hint?: string;
+  value: boolean;
+  onChange: (v: boolean) => void;
+}) {
   return (
     <li className="flex items-center justify-between rounded-xl border border-zinc-800 bg-zinc-900 p-4">
       <div>
@@ -82,7 +105,9 @@ function Toggle({ label, hint, value, onChange }: { label: string; hint?: string
         onClick={() => onChange(!value)}
         className={`relative h-6 w-11 rounded-full transition ${value ? "bg-blue-600" : "bg-zinc-700"}`}
       >
-        <span className={`absolute top-0.5 size-5 rounded-full bg-white transition-all ${value ? "left-5" : "left-0.5"}`} />
+        <span
+          className={`absolute top-0.5 size-5 rounded-full bg-white transition-all ${value ? "left-5" : "left-0.5"}`}
+        />
       </button>
     </li>
   );
