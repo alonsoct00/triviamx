@@ -1,13 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
-const BASE_URL = "";
+const BASE_URL = "https://triviamx.lovable.app";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const paths = ["/", "/partida/nueva", "/banco", "/ia", "/historial", "/estadisticas", "/ajustes", "/sincronizar"];
+        // Rutas públicas e indexables. Se omiten /reset-password (requiere token
+        // de un solo uso) y /sala/$codigo (salas efímeras y privadas).
+        const paths = [
+          "/",
+          "/auth",
+          "/partida/nueva",
+          "/banco",
+          "/ia",
+          "/importar",
+          "/historial",
+          "/estadisticas",
+          "/ajustes",
+          "/sincronizar",
+          "/cuenta",
+        ];
         const xml = [
           `<?xml version="1.0" encoding="UTF-8"?>`,
           `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
