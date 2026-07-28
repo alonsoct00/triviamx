@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "sdk_version": "0.25.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://fmxmjplqgkutvtothmik.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "trivia-master-mx",
+      "version": "0.1.0",
+      "title": "Trivia Master MX"
+    },
+    "tools": [
+      {
+        "name": "buscar_preguntas",
+        "title": "Buscar preguntas",
+        "description": "Busca preguntas del banco de trivia por texto, categoría, nivel o tipo.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "texto": {
+              "description": "Texto a buscar dentro de la pregunta.",
+              "type": "string"
+            },
+            "categoria": {
+              "description": "ID de categoría, p. ej. historia_mexico, cine, deportes.",
+              "type": "string"
+            },
+            "nivel": {
+              "description": "Nivel de dificultad: facil, medio o dificil.",
+              "type": "string"
+            },
+            "tipo": {
+              "description": "Tipo de pregunta: abierta, opcion_multiple, verdadero_falso.",
+              "type": "string"
+            },
+            "limite": {
+              "description": "Máximo de resultados (por defecto 20).",
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "resumen_banco",
+        "title": "Resumen del banco",
+        "description": "Devuelve el total de preguntas y su distribución por categoría y nivel.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "categoria": {
+              "description": "Filtra el resumen a una sola categoría.",
+              "type": "string"
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "listar_partidas",
+        "title": "Listar partidas",
+        "description": "Lista el historial de partidas del moderador conectado, con aciertos, errores y tiempo.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "limite": {
+              "description": "Máximo de partidas a devolver (por defecto 20).",
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "crear_pregunta",
+        "title": "Crear pregunta",
+        "description": "Agrega una pregunta al banco de trivia. Requiere que el usuario conectado sea administrador.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "pregunta": {
+              "type": "string",
+              "description": "Texto de la pregunta."
+            },
+            "respuesta": {
+              "type": "string",
+              "description": "Respuesta correcta."
+            },
+            "categoria": {
+              "type": "string",
+              "description": "ID de categoría, p. ej. historia_mexico o cine."
+            },
+            "nivel": {
+              "type": "string",
+              "description": "Nivel: facil, medio o dificil."
+            },
+            "tipo": {
+              "description": "abierta (por defecto), opcion_multiple o verdadero_falso.",
+              "type": "string"
+            },
+            "opciones": {
+              "description": "Opciones para preguntas de opción múltiple.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "explicacion": {
+              "description": "Explicación breve de la respuesta.",
+              "type": "string"
+            },
+            "fuente": {
+              "description": "Fuente o referencia.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "pregunta",
+            "respuesta",
+            "categoria",
+            "nivel"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
