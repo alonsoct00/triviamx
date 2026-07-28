@@ -17,7 +17,8 @@ export const Route = createFileRoute("/auth")({
     const { data } = await supabase.auth.getSession();
     if (data.session) {
       const next = safeNext(search.next);
-      throw redirect(next ? { href: next } : { to: "/" });
+      if (next) throw redirect({ href: next });
+      throw redirect({ to: "/" });
     }
   },
   component: AuthPage,
