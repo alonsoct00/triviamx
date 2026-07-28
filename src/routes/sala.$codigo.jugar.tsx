@@ -81,7 +81,7 @@ function JugarSala() {
 
   if (!jugadorId || !q.data) {
     return (
-      <div className="min-h-screen bg-zinc-950 p-6 text-center text-zinc-500">Cargando…</div>
+      <div className="min-h-screen bg-zinc-950 p-6 text-center text-zinc-400">Cargando…</div>
     );
   }
 
@@ -92,7 +92,7 @@ function JugarSala() {
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
       <div className="mx-auto max-w-md px-4 pb-24 pt-6">
         <div className="mb-4 flex items-center justify-between text-xs">
-          <span className="text-zinc-500">
+          <span className="text-zinc-400">
             Sala <span className="font-mono text-zinc-300">{sala.codigo}</span>
           </span>
           <span className="rounded-full bg-zinc-900 px-3 py-1 text-zinc-300">
@@ -143,7 +143,7 @@ function JugarSala() {
                       onClick={() => responder(op)}
                       className={`rounded-xl border p-4 text-left text-base font-medium ${clase} disabled:opacity-70`}
                     >
-                      <span className="mr-2 text-zinc-500">{String.fromCharCode(65 + i)}.</span> {op}
+                      <span className="mr-2 text-zinc-400">{String.fromCharCode(65 + i)}.</span> {op}
                     </button>
                   );
                 })}
@@ -171,7 +171,7 @@ function JugarSala() {
 
             {sala.estado === "revelada" && pregunta.respuesta && (
               <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-900 p-4">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Respuesta</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Respuesta</p>
                 <p className="mt-1 font-semibold text-lime-300">{pregunta.respuesta}</p>
                 {pregunta.explicacion && (
                   <p className="mt-2 text-xs text-zinc-400">{pregunta.explicacion}</p>
@@ -180,7 +180,7 @@ function JugarSala() {
             )}
 
             <section className="mt-6">
-              <h2 className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500">
+              <h2 className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400">
                 <Trophy className="size-3.5" /> Marcador
               </h2>
               <ul className="space-y-1.5">
@@ -192,7 +192,7 @@ function JugarSala() {
                     }`}
                   >
                     <span className="flex items-center gap-3">
-                      <span className="w-5 text-right text-xs text-zinc-500">{i + 1}</span>
+                      <span className="w-5 text-right text-xs text-zinc-400">{i + 1}</span>
                       <span>{j.nickname}</span>
                     </span>
                     <span className="font-display font-bold">{j.puntos}</span>
@@ -245,7 +245,7 @@ function EstadoCard({ title, subtitle }: { title: string; subtitle: string }) {
   return (
     <div className="mt-16 rounded-2xl border border-zinc-800 bg-zinc-900 p-8 text-center">
       <p className="font-display text-2xl font-bold">{title}</p>
-      <p className="mt-2 text-sm text-zinc-500">{subtitle}</p>
+      <p className="mt-2 text-sm text-zinc-400">{subtitle}</p>
     </div>
   );
 }
@@ -262,10 +262,10 @@ function ResultadosFinales({
   const miPos = jugadores.findIndex((j) => j.id === miId) + 1;
   return (
     <div>
-      <p className="mb-2 text-center text-[10px] font-bold uppercase tracking-widest text-zinc-500">Resultados</p>
+      <p className="mb-2 text-center text-[10px] font-bold uppercase tracking-widest text-zinc-400">Resultados</p>
       <h2 className="mb-6 text-center font-display text-3xl font-bold">¡Fin de la partida!</h2>
       <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-900 p-5 text-center">
-        <p className="text-xs text-zinc-500">Terminaste en</p>
+        <p className="text-xs text-zinc-400">Terminaste en</p>
         <p className="font-display text-4xl font-bold">#{miPos}</p>
         <p className="mt-1 text-sm text-zinc-400">{yo?.puntos ?? 0} puntos</p>
       </div>

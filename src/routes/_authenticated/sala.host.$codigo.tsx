@@ -35,7 +35,7 @@ function SalaHost() {
     }
   }
 
-  if (q.isLoading || !q.data) return <AppShell><p className="text-zinc-500">Cargando…</p></AppShell>;
+  if (q.isLoading || !q.data) return <AppShell><p className="text-zinc-400">Cargando…</p></AppShell>;
   const { sala, jugadores, pregunta } = q.data;
 
   const copiar = async () => {
@@ -50,7 +50,7 @@ function SalaHost() {
 
   return (
     <AppShell>
-      <Link to="/" className="mb-4 inline-flex items-center gap-2 text-xs text-zinc-500">
+      <Link to="/" className="mb-4 inline-flex items-center gap-2 text-xs text-zinc-400">
         <ArrowLeft className="size-4" /> Salir
       </Link>
 
@@ -62,7 +62,7 @@ function SalaHost() {
           className="mt-3 flex w-full items-center justify-between rounded-xl border border-zinc-800 bg-zinc-900/70 px-3 py-2 text-xs text-zinc-300"
         >
           <span className="truncate">{link}</span>
-          <span className="flex items-center gap-1 text-zinc-500">
+          <span className="flex items-center gap-1 text-zinc-400">
             <Copy className="size-3.5" /> {copied ? "¡Copiado!" : "Copiar"}
           </span>
         </button>
@@ -70,7 +70,7 @@ function SalaHost() {
 
       <section className="mb-5 rounded-xl border border-zinc-800 bg-zinc-900 p-4">
         <div className="mb-2 flex items-center justify-between">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Estado</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Estado</p>
           <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] uppercase text-zinc-300">{sala.estado}</span>
         </div>
         {sala.estado === "esperando" ? (
@@ -81,7 +81,7 @@ function SalaHost() {
           <p className="text-sm text-zinc-400">Sala finalizada.</p>
         ) : (
           <>
-            <p className="text-xs text-zinc-500">Pregunta {sala.orden_actual + 1} / {sala.cantidad}</p>
+            <p className="text-xs text-zinc-400">Pregunta {sala.orden_actual + 1} / {sala.cantidad}</p>
             {pregunta && (
               <p className="mt-2 font-display text-lg font-semibold leading-tight">{pregunta.pregunta}</p>
             )}
@@ -143,11 +143,11 @@ function SalaHost() {
       </div>
 
       <section>
-        <h2 className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500">
+        <h2 className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400">
           <Trophy className="size-3.5" /> Marcador
         </h2>
         {jugadores.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-zinc-800 p-4 text-center text-xs text-zinc-500">
+          <p className="rounded-xl border border-dashed border-zinc-800 p-4 text-center text-xs text-zinc-400">
             Esperando invitados…
           </p>
         ) : (
@@ -158,7 +158,7 @@ function SalaHost() {
                 className="flex items-center justify-between rounded-xl border border-zinc-800 bg-zinc-900 px-3 py-2"
               >
                 <span className="flex items-center gap-3">
-                  <span className="w-5 text-right text-xs text-zinc-500">{i + 1}</span>
+                  <span className="w-5 text-right text-xs text-zinc-400">{i + 1}</span>
                   <span className="text-sm font-semibold">{j.nickname}</span>
                 </span>
                 <span className="flex items-center gap-3 text-xs">

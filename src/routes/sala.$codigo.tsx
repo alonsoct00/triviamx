@@ -48,7 +48,7 @@ function JoinSala() {
         <div className="mb-8 flex size-16 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400">
           <Users className="size-8" />
         </div>
-        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Sala</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Sala</p>
         <h1 className="mt-1 font-display text-4xl font-bold tracking-widest">{codigo.toUpperCase()}</h1>
 
         {existe === false ? (
@@ -57,7 +57,7 @@ function JoinSala() {
           </p>
         ) : (
           <form onSubmit={unirse} className="mt-8 w-full">
-            <label className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-zinc-500">
+            <label className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-zinc-400">
               Tu nombre
             </label>
             <input
@@ -76,7 +76,7 @@ function JoinSala() {
             >
               {loading ? "Entrando…" : "Entrar"}
             </button>
-            <p className="mt-4 text-center text-[11px] text-zinc-500">
+            <p className="mt-4 text-center text-[11px] text-zinc-400">
               No necesitas cuenta. El anfitrión ve tu nombre en el marcador.
             </p>
           </form>

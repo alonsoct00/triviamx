@@ -24,7 +24,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="mx-auto max-w-md px-4 pt-4">
         <header className="mb-6 flex items-center justify-between border-b border-zinc-800 pb-4">
           <div className="flex flex-col min-w-0">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 flex items-center gap-1">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 flex items-center gap-1">
               Moderador
               {isAdmin && (
                 <span className="inline-flex items-center gap-0.5 rounded bg-blue-500/20 px-1.5 py-0.5 text-[9px] font-bold text-blue-400">
@@ -35,7 +35,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <h1 className="font-display text-xl font-bold tracking-tight">
               TRIVIA<span className="text-blue-500">MX</span>
             </h1>
-            {user?.email && <span className="truncate text-[10px] text-zinc-500">{user.email}</span>}
+            {user?.email && <span className="truncate text-[10px] text-zinc-400">{user.email}</span>}
           </div>
           <div className="flex items-center gap-2">
             <Link

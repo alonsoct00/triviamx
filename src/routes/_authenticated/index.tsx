@@ -25,7 +25,7 @@ function Home() {
         <p className="mt-1 font-display text-3xl font-bold">
           {total.toLocaleString("es-MX")} <span className="text-sm font-medium text-zinc-400">preguntas</span>
         </p>
-        <p className="mt-1 text-xs text-zinc-500">Español (México) · Actualizable con IA</p>
+        <p className="mt-1 text-xs text-zinc-400">Español (México) · Actualizable con IA</p>
       </section>
 
       <Link
@@ -113,7 +113,7 @@ function Tile({
       <div className={`flex size-10 items-center justify-center rounded-xl bg-zinc-800 ${accent}`}>{icon}</div>
       <div>
         <p className="text-sm font-semibold leading-tight text-zinc-100">{label}</p>
-        <p className="mt-1 text-[11px] text-zinc-500">{hint}</p>
+        <p className="mt-1 text-[11px] text-zinc-400">{hint}</p>
       </div>
     </Link>
   );

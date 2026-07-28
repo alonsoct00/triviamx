@@ -39,11 +39,11 @@ function NuevaSala() {
 
   return (
     <AppShell>
-      <Link to="/" className="mb-4 inline-flex items-center gap-2 text-xs text-zinc-500">
+      <Link to="/" className="mb-4 inline-flex items-center gap-2 text-xs text-zinc-400">
         <ArrowLeft className="size-4" /> Volver
       </Link>
       <h1 className="mb-1 font-display text-2xl font-bold">Sala en grupo</h1>
-      <p className="mb-6 text-sm text-zinc-500">
+      <p className="mb-6 text-sm text-zinc-400">
         Comparte un enlace con tus amigos. El más rápido en responder gana más puntos. Sin registro.
       </p>
 
@@ -134,8 +134,8 @@ function Section({ title, hint, children }: { title: string; hint?: string; chil
   return (
     <section className="mb-5">
       <div className="mb-2 flex items-baseline justify-between">
-        <h2 className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">{title}</h2>
-        {hint && <span className="text-[10px] text-zinc-600">{hint}</span>}
+        <h2 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">{title}</h2>
+        {hint && <span className="text-[10px] text-zinc-400">{hint}</span>}
       </div>
       {children}
     </section>

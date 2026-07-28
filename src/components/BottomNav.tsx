@@ -20,7 +20,7 @@ export function BottomNav() {
             <Link
               key={to}
               to={to}
-              className={`flex flex-col items-center gap-1 ${active ? "text-blue-500" : "text-zinc-500"}`}
+              className={`flex flex-col items-center gap-1 ${active ? "text-blue-500" : "text-zinc-400"}`}
             >
               <Icon className="size-5" strokeWidth={2.25} />
               <span className="text-[10px] font-bold uppercase tracking-tight">{label}</span>

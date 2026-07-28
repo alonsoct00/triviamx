@@ -27,9 +27,9 @@ function Historial() {
       </Link>
       <h2 className="mb-4 font-display text-2xl font-bold">Historial</h2>
 
-      {isLoading && <p className="text-center text-zinc-500">Cargando…</p>}
+      {isLoading && <p className="text-center text-zinc-400">Cargando…</p>}
       {data && data.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-zinc-800 p-8 text-center text-sm text-zinc-500">
+        <div className="rounded-2xl border border-dashed border-zinc-800 p-8 text-center text-sm text-zinc-400">
           Aún no has jugado ninguna partida.
         </div>
       )}
@@ -49,15 +49,15 @@ function Historial() {
                 <span className="text-xs font-semibold" style={{ color: cat.color }}>
                   {p.categoria ? `${cat.emoji} ${cat.nombre}` : "🎲 Todas las categorías"}
                 </span>
-                <span className="text-[10px] uppercase text-zinc-500">{p.estado.replace("_", " ")}</span>
+                <span className="text-[10px] uppercase text-zinc-400">{p.estado.replace("_", " ")}</span>
               </div>
               <div className="flex items-end justify-between">
                 <div>
                   <p className="font-display text-2xl font-bold">
                     <span className="text-green-500">{p.correctas}</span>
-                    <span className="text-zinc-600"> / {total || p.cantidad}</span>
+                    <span className="text-zinc-400"> / {total || p.cantidad}</span>
                   </p>
-                  <p className="text-[11px] text-zinc-500">
+                  <p className="text-[11px] text-zinc-400">
                     {p.nivel ? `${p.nivel.replace("_", " ")} · ` : ""}{p.tiempo_segundos}s · {fecha}
                   </p>
                 </div>

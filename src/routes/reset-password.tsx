@@ -50,7 +50,7 @@ function ResetPasswordPage() {
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center px-4 font-sans">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Restablecer</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Restablecer</p>
           <h1 className="font-display text-2xl font-bold tracking-tight mt-1">Nueva contraseña</h1>
         </div>
         <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5">
@@ -61,13 +61,13 @@ function ResetPasswordPage() {
             </div>
           ) : !ready ? (
             <div className="flex flex-col items-center gap-2 py-4 text-center">
-              <Loader2 className="size-6 animate-spin text-zinc-500" />
-              <p className="text-xs text-zinc-500">Validando enlace…</p>
+              <Loader2 className="size-6 animate-spin text-zinc-400" />
+              <p className="text-xs text-zinc-400">Validando enlace…</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3">
               <div>
-                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Nueva contraseña</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Nueva contraseña</label>
                 <input
                   type="password"
                   required
@@ -78,7 +78,7 @@ function ResetPasswordPage() {
                 />
               </div>
               <div>
-                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Confirmar</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Confirmar</label>
                 <input
                   type="password"
                   required

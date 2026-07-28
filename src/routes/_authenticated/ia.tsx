@@ -52,7 +52,7 @@ function IAGen() {
       </div>
 
       <section className="mb-4">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-500">Categoría</p>
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-400">Categoría</p>
         <select
           value={categoria}
           onChange={(e) => setCategoria(e.target.value)}
@@ -65,7 +65,7 @@ function IAGen() {
       </section>
 
       <section className="mb-4">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-500">Nivel</p>
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-400">Nivel</p>
         <div className="grid grid-cols-3 gap-2">
           {NIVELES.map((n) => (
             <button
@@ -80,7 +80,7 @@ function IAGen() {
       </section>
 
       <section className="mb-4">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-500">Tipo</p>
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-400">Tipo</p>
         <div className="grid grid-cols-2 gap-2">
           {TIPOS.map((t) => (
             <button
@@ -95,7 +95,7 @@ function IAGen() {
       </section>
 
       <section className="mb-4">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-500">Cantidad ({cantidad})</p>
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-400">Cantidad ({cantidad})</p>
         <input
           type="range"
           min={1}
@@ -107,7 +107,7 @@ function IAGen() {
       </section>
 
       <section className="mb-6">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-500">Tema específico (opcional)</p>
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-400">Tema específico (opcional)</p>
         <input
           value={tema}
           onChange={(e) => setTema(e.target.value)}

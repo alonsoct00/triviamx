@@ -21,11 +21,11 @@ function Estadisticas() {
       </Link>
       <h2 className="mb-4 font-display text-2xl font-bold">Estadísticas</h2>
       <div className="mb-6 rounded-2xl border border-zinc-800 bg-zinc-900 p-5">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Total</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Total</p>
         <p className="font-display text-4xl font-bold">{total}</p>
       </div>
 
-      <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-500">Distribución por categoría</p>
+      <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-400">Distribución por categoría</p>
       <ul className="space-y-2">
         {entries.map(([id, n]) => {
           const cat = getCategoria(id);
@@ -34,7 +34,7 @@ function Estadisticas() {
             <li key={id} className="rounded-xl border border-zinc-800 bg-zinc-900 p-3">
               <div className="mb-1.5 flex items-center justify-between text-xs">
                 <span className="font-semibold" style={{ color: cat.color }}>{cat.emoji} {cat.nombre}</span>
-                <span className="text-zinc-500">{n} · {pct}%</span>
+                <span className="text-zinc-400">{n} · {pct}%</span>
               </div>
               <div className="h-1.5 overflow-hidden rounded-full bg-zinc-800">
                 <div className="h-full" style={{ width: `${pct}%`, backgroundColor: cat.color }} />

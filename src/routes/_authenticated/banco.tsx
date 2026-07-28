@@ -58,7 +58,7 @@ function Banco() {
       </div>
 
       <div className="relative mb-4">
-        <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-zinc-500" />
+        <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-zinc-400" />
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
@@ -82,20 +82,20 @@ function Banco() {
         ))}
       </div>
 
-      {isLoading && <p className="text-center text-zinc-500">Cargando…</p>}
+      {isLoading && <p className="text-center text-zinc-400">Cargando…</p>}
       <ul className="space-y-3">
         {(data ?? []).map((p) => (
           <li key={p.id} className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
             <div className="mb-2 flex items-center justify-between">
               <CategoryBadge id={p.categoria} />
-              <span className="text-[10px] uppercase text-zinc-500">{p.nivel.replace("_", " ")}</span>
+              <span className="text-[10px] uppercase text-zinc-400">{p.nivel.replace("_", " ")}</span>
             </div>
             <p className="text-sm font-medium leading-snug text-zinc-100">{p.pregunta}</p>
             <p className="mt-2 text-xs text-zinc-400">
               <span className="font-bold text-zinc-300">R:</span> {p.respuesta}
             </p>
             <div className="mt-3 flex items-center justify-between">
-              <span className="text-[10px] uppercase tracking-wider text-zinc-600">
+              <span className="text-[10px] uppercase tracking-wider text-zinc-400">
                 {p.origen === "ia" ? "IA" : p.origen === "manual" ? "Manual" : "Semilla"} · {p.fecha_actualizacion}
               </span>
               <div className="flex gap-2">
@@ -118,7 +118,7 @@ function Banco() {
           </li>
         ))}
         {data && data.length === 0 && (
-          <li className="rounded-2xl border border-dashed border-zinc-800 p-6 text-center text-sm text-zinc-500">
+          <li className="rounded-2xl border border-dashed border-zinc-800 p-6 text-center text-sm text-zinc-400">
             No hay preguntas con estos filtros.
           </li>
         )}
@@ -225,7 +225,7 @@ function EditorModal({
       >
         <div className="mb-4 flex items-center justify-between">
           <h3 className="font-display text-lg font-bold">{pregunta ? "Editar pregunta" : "Nueva pregunta"}</h3>
-          <button onClick={onClose} className="text-zinc-500"><X className="size-5" /></button>
+          <button onClick={onClose} className="text-zinc-400"><X className="size-5" /></button>
         </div>
 
         <div className="max-h-[70vh] space-y-3 overflow-y-auto pr-1">
@@ -326,7 +326,7 @@ function EditorModal({
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-[10px] font-bold uppercase tracking-widest text-zinc-500">{label}</span>
+      <span className="mb-1 block text-[10px] font-bold uppercase tracking-widest text-zinc-400">{label}</span>
       {children}
     </label>
   );
