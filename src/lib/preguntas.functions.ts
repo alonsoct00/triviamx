@@ -52,24 +52,29 @@ export const getRandomPreguntas = createServerFn({ method: "POST" })
     // Se completa el cupo relajando filtros progresivamente (nivel → categoría)
     const seen = new Set<string>(excl);
     const pool: Awaited<ReturnType<typeof fetchPool>> = [];
+    const shuffle = <T,>(arr: T[]) => {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    };
     const addFrom = async (useCats: boolean, useNivs: boolean) => {
       if (pool.length >= cantidad) return;
-      const rows = await fetchPool(useCats, useNivs);
+      const rows = shuffle(await fetchPool(useCats, useNivs));
       for (const r of rows) {
         if (seen.has(r.id)) continue;
         seen.add(r.id);
         pool.push(r);
+        if (pool.length >= cantidad) break;
       }
     };
     await addFrom(true, true);
     if (pool.length < cantidad && nivs.length) await addFrom(true, false);
     if (pool.length < cantidad) await addFrom(false, false);
 
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
     return pool.slice(0, cantidad) as Row[];
+
   });
 
 
