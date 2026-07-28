@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
-import { ArrowLeft, Pencil, Search, Trash2, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, Pencil, Search, Trash2, X } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { CATEGORIAS, NIVELES } from "@/lib/categorias";
-import { eliminarPregunta, guardarPregunta, listPreguntas } from "@/lib/preguntas.functions";
+import { contarPreguntas, eliminarPregunta, guardarPregunta, listPreguntas } from "@/lib/preguntas.functions";
+
 
 export const Route = createFileRoute("/_authenticated/banco")({
   component: Banco,
