@@ -21,11 +21,38 @@ function SalaHost() {
   });
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [qrOpen, setQrOpen] = useState(false);
+  const [qrSrc, setQrSrc] = useState<string | null>(null);
 
   const link = useMemo(
     () => (typeof window !== "undefined" ? `${window.location.origin}/sala/${codigo}` : `/sala/${codigo}`),
     [codigo],
   );
+
+  useEffect(() => {
+    if (!qrOpen || qrSrc) return;
+    QRCode.toDataURL(link, { width: 512, margin: 1, color: { dark: "#000000", light: "#ffffff" } })
+      .then(setQrSrc)
+      .catch(() => setQrSrc(null));
+  }, [qrOpen, qrSrc, link]);
+
+  const compartir = async () => {
+    const datos = {
+      title: "Trivia Master MX",
+      text: `Únete a mi sala de trivia con el código ${codigo}`,
+      url: link,
+    };
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share(datos);
+        return;
+      } catch {
+        return;
+      }
+    }
+    await copiar();
+  };
+
 
   async function accion(fn: () => Promise<unknown>) {
     setBusy(true);
