@@ -19,7 +19,7 @@ function Ajustes() {
       <h2 className="mb-4 font-display text-2xl font-bold">Configuración</h2>
 
       <section className="mb-6">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-500">Tiempo por defecto</p>
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-400">Tiempo por defecto</p>
         <div className="grid grid-cols-5 gap-2">
           {TIEMPOS.map((t) => (
             <button
@@ -34,7 +34,7 @@ function Ajustes() {
       </section>
 
       <section className="mb-6">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-500">Cantidad por defecto</p>
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-400">Cantidad por defecto</p>
         <div className="grid grid-cols-5 gap-2">
           {[5, 10, 15, 20, 30].map((n) => (
             <button
@@ -70,7 +70,7 @@ function Ajustes() {
         <Row label="Tema" value="Oscuro (Neon Console)" />
         <Row label="Idioma" value="Español (México)" />
       </ul>
-      <p className="mt-6 text-center text-[10px] uppercase tracking-widest text-zinc-600">Trivia MX · v0.2</p>
+      <p className="mt-6 text-center text-[10px] uppercase tracking-widest text-zinc-400">Trivia MX · v0.2</p>
     </AppShell>
   );
 }
@@ -79,7 +79,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <li className="flex items-center justify-between rounded-xl border border-zinc-800 bg-zinc-900 p-4">
       <span className="text-sm font-medium text-zinc-200">{label}</span>
-      <span className="text-xs text-zinc-500">{value}</span>
+      <span className="text-xs text-zinc-400">{value}</span>
     </li>
   );
 }
@@ -99,7 +99,7 @@ function Toggle({
     <li className="flex items-center justify-between rounded-xl border border-zinc-800 bg-zinc-900 p-4">
       <div>
         <p className="text-sm font-medium text-zinc-200">{label}</p>
-        {hint && <p className="text-[11px] text-zinc-500">{hint}</p>}
+        {hint && <p className="text-[11px] text-zinc-400">{hint}</p>}
       </div>
       <button
         onClick={() => onChange(!value)}

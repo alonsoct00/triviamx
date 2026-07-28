@@ -57,7 +57,7 @@ function Importar() {
       </div>
 
       <section className="mb-5">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-500">URL</p>
+        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-400">URL</p>
         <input
           value={url}
           onChange={(e) => setUrl(e.target.value)}
@@ -68,13 +68,13 @@ function Importar() {
 
       <div className="mb-5 grid grid-cols-2 gap-3">
         <div>
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500">Categoría sugerida</p>
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Categoría sugerida</p>
           <select value={categoria} onChange={(e) => setCategoria(e.target.value)} className="w-full rounded-xl border border-zinc-800 bg-zinc-900 px-3 py-2.5 text-sm">
             {CATEGORIAS.map((c) => <option key={c.id} value={c.id}>{c.emoji} {c.nombre}</option>)}
           </select>
         </div>
         <div>
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500">Nivel sugerido</p>
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Nivel sugerido</p>
           <select value={nivel} onChange={(e) => setNivel(e.target.value)} className="w-full rounded-xl border border-zinc-800 bg-zinc-900 px-3 py-2.5 text-sm">
             {NIVELES.map((n) => <option key={n.id} value={n.id}>{n.nombre}</option>)}
           </select>
@@ -82,7 +82,7 @@ function Importar() {
       </div>
 
       <div className="mb-5">
-        <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500">Máximo por URL ({max})</p>
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400">Máximo por URL ({max})</p>
         <input type="range" min={5} max={40} value={max} onChange={(e) => setMax(Number(e.target.value))} className="w-full accent-cyan-500" />
       </div>
 
@@ -96,12 +96,12 @@ function Importar() {
       </button>
 
       <section className="mb-6">
-        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-500">Fuentes sugeridas</p>
+        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-400">Fuentes sugeridas</p>
         <ul className="space-y-2">
           {PRESETS.map((p) => (
             <li key={p.url} className="rounded-xl border border-zinc-800 bg-zinc-900 p-3">
               <p className="text-sm font-semibold">{p.label}</p>
-              <p className="mt-0.5 truncate text-[11px] text-zinc-500">{p.url}</p>
+              <p className="mt-0.5 truncate text-[11px] text-zinc-400">{p.url}</p>
               <div className="mt-2 flex gap-2">
                 <button
                   onClick={() => { setUrl(p.url); setCategoria(p.categoria); setNivel(p.nivel); }}
@@ -124,7 +124,7 @@ function Importar() {
 
       {log.length > 0 && (
         <section>
-          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-500">Resultado</p>
+          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-zinc-400">Resultado</p>
           <ul className="space-y-2">
             {log.map((l, i) => (
               <li key={i} className={`rounded-xl border p-3 text-xs ${l.ok ? "border-green-900/50 bg-green-950/20 text-green-300" : "border-red-900/50 bg-red-950/20 text-red-300"}`}>

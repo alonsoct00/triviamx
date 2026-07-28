@@ -182,7 +182,7 @@ function Jugar() {
   if (isLoading) {
     return (
       <AppShell>
-        <p className="text-center text-zinc-500">Cargando preguntas…</p>
+        <p className="text-center text-zinc-400">Cargando preguntas…</p>
       </AppShell>
     );
   }
@@ -216,7 +216,7 @@ function Jugar() {
         <header className="flex items-center justify-between border-b border-zinc-800 p-4">
           <div className="flex items-center gap-3">
             <CategoryBadge id={categoriaId} />
-            <span className="text-sm text-zinc-500">
+            <span className="text-sm text-zinc-400">
               {String(idx + 1).padStart(2, "0")}/{preguntas.length}
             </span>
           </div>
@@ -249,7 +249,7 @@ function Jugar() {
                   className="rounded-2xl border border-zinc-800 bg-zinc-900 px-6 py-4 text-left"
                   style={{ fontSize: "clamp(1rem, 2.4vw, 2rem)" }}
                 >
-                  <span className="mr-3 font-bold text-zinc-500">{String.fromCharCode(65 + i)}.</span>
+                  <span className="mr-3 font-bold text-zinc-400">{String.fromCharCode(65 + i)}.</span>
                   {op}
                 </li>
               ))}
@@ -333,7 +333,7 @@ function Jugar() {
           <ArrowLeft className="size-4" /> Salir
         </button>
         <div className="flex items-center gap-3">
-          <span className="text-xs font-medium text-zinc-500">
+          <span className="text-xs font-medium text-zinc-400">
             Pregunta <span className="text-white">{String(idx + 1).padStart(2, "0")}</span>/{preguntas.length}
           </span>
           <button
@@ -365,7 +365,7 @@ function Jugar() {
             <span className="rounded bg-zinc-800 px-2 py-0.5 text-[10px] uppercase text-zinc-400">
               Nivel: {preguntaActual.nivel.replace("_", " ")}
             </span>
-            <span className="text-[10px] uppercase text-zinc-500">Tipo: {preguntaActual.tipo.replace("_", " ")}</span>
+            <span className="text-[10px] uppercase text-zinc-400">Tipo: {preguntaActual.tipo.replace("_", " ")}</span>
           </div>
 
           <h2 className="mb-6 font-display text-2xl font-medium leading-tight">{preguntaActual.pregunta}</h2>
@@ -374,7 +374,7 @@ function Jugar() {
             <ul className="mb-4 space-y-2">
               {opciones.map((op, i) => (
                 <li key={i} className="rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-3 text-sm text-zinc-300">
-                  <span className="mr-2 font-bold text-zinc-500">{String.fromCharCode(65 + i)}.</span>
+                  <span className="mr-2 font-bold text-zinc-400">{String.fromCharCode(65 + i)}.</span>
                   {op}
                 </li>
               ))}
@@ -400,7 +400,7 @@ function Jugar() {
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300">{preguntaActual.explicacion}</p>
               )}
               {preguntaActual.fuente && (
-                <p className="mt-2 text-[10px] uppercase tracking-widest text-zinc-500">
+                <p className="mt-2 text-[10px] uppercase tracking-widest text-zinc-400">
                   Fuente: {preguntaActual.fuente} · {preguntaActual.fecha_actualizacion}
                 </p>
               )}
@@ -426,7 +426,7 @@ function Jugar() {
             {tiempo}
           </span>
         </div>
-        <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">
+        <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">
           {fase === "leer" && "Lee la pregunta"}
           {fase === "corriendo" && "Tiempo restante"}
           {fase === "tiempo_fuera" && "¡Se acabó el tiempo!"}

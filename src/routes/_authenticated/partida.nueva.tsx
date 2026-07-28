@@ -48,16 +48,16 @@ function NuevaPartida() {
 
       <section className="mb-6">
         <div className="mb-3 flex items-center justify-between">
-          <p className="text-xs font-bold uppercase tracking-widest text-zinc-500">
+          <p className="text-xs font-bold uppercase tracking-widest text-zinc-400">
             Categorías {categorias.length > 0 && <span className="text-blue-400">({categorias.length})</span>}
           </p>
           {categorias.length > 0 && (
-            <button onClick={() => setCategorias([])} className="text-[10px] uppercase tracking-widest text-zinc-500 hover:text-zinc-300">
+            <button onClick={() => setCategorias([])} className="text-[10px] uppercase tracking-widest text-zinc-400 hover:text-zinc-300">
               Limpiar
             </button>
           )}
         </div>
-        <p className="mb-2 text-[11px] text-zinc-500">Toca varias para combinar bancos. Ninguna = todas.</p>
+        <p className="mb-2 text-[11px] text-zinc-400">Toca varias para combinar bancos. Ninguna = todas.</p>
         <div className="grid grid-cols-2 gap-2">
           <button
             onClick={() => setCategorias([])}
@@ -87,7 +87,7 @@ function NuevaPartida() {
       </section>
 
       <section className="mb-6">
-        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-500">
+        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-400">
           Dificultad {niveles.length > 0 && <span className="text-blue-400">({niveles.length})</span>}
         </p>
         <div className="grid grid-cols-3 gap-2">
@@ -113,7 +113,7 @@ function NuevaPartida() {
       </section>
 
       <section className="mb-6">
-        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-500">Cantidad de preguntas</p>
+        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-400">Cantidad de preguntas</p>
         <div className="grid grid-cols-5 gap-2">
           {[5, 10, 15, 20, 30].map((n) => (
             <button
@@ -128,7 +128,7 @@ function NuevaPartida() {
       </section>
 
       <section className="mb-8">
-        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-500">Cronómetro (segundos)</p>
+        <p className="mb-3 text-xs font-bold uppercase tracking-widest text-zinc-400">Cronómetro (segundos)</p>
         <div className="grid grid-cols-5 gap-2">
           {TIEMPOS.map((t) => (
             <button

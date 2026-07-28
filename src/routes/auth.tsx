@@ -72,10 +72,10 @@ function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center px-4 font-sans">
+    <main className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center px-4 font-sans">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Moderador</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Moderador</p>
           <h1 className="font-display text-2xl font-bold tracking-tight mt-1">
             TRIVIA<span className="text-blue-500">MX</span>
           </h1>
@@ -120,7 +120,7 @@ function AuthPage() {
 
           <form onSubmit={handleEmail} className="space-y-3">
             <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Email</label>
+              <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Email</label>
               <input
                 type="email"
                 required
@@ -132,7 +132,7 @@ function AuthPage() {
             </div>
             {mode !== "forgot" && (
               <div>
-                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Contraseña</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Contraseña</label>
                 <input
                   type="password"
                   required
@@ -178,7 +178,7 @@ function AuthPage() {
 
           {mode !== "forgot" && (
             <>
-              <div className="my-4 flex items-center gap-2 text-[10px] uppercase tracking-widest text-zinc-600">
+              <div className="my-4 flex items-center gap-2 text-[10px] uppercase tracking-widest text-zinc-400">
                 <div className="h-px flex-1 bg-zinc-800" />
                 o
                 <div className="h-px flex-1 bg-zinc-800" />
@@ -213,8 +213,8 @@ function AuthPage() {
           )}
         </div>
 
-        <p className="mt-4 text-center text-[11px] text-zinc-500">El primer usuario registrado será administrador.</p>
+        <p className="mt-4 text-center text-[11px] text-zinc-400">El primer usuario registrado será administrador.</p>
       </div>
-    </div>
+    </main>
   );
 }

@@ -103,13 +103,13 @@ function CuentaPage() {
   return (
     <AppShell>
       <div className="mb-4">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Cuenta</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Cuenta</p>
         <h2 className="font-display text-xl font-bold">Administrar cuenta</h2>
       </div>
 
       {/* Info actual */}
       <div className="mb-4 rounded-2xl border border-zinc-800 bg-zinc-900 p-4">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Correo actual</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Correo actual</p>
         <p className="mt-1 truncate text-sm text-white">{user?.email ?? "—"}</p>
         {isAdmin && (
           <span className="mt-2 inline-flex items-center gap-1 rounded bg-blue-500/20 px-2 py-0.5 text-[10px] font-bold text-blue-400">
@@ -153,7 +153,7 @@ function CuentaPage() {
         </div>
         <div className="space-y-2">
           <div>
-            <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Contraseña actual</label>
+            <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Contraseña actual</label>
             <input
               type="password"
               value={currentPwd}
@@ -162,7 +162,7 @@ function CuentaPage() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Nueva contraseña</label>
+            <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Nueva contraseña</label>
             <input
               type="password"
               minLength={8}
@@ -172,7 +172,7 @@ function CuentaPage() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Confirmar</label>
+            <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Confirmar</label>
             <input
               type="password"
               minLength={8}
