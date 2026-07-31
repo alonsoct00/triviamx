@@ -123,7 +123,7 @@ function JugarSala() {
               <p className="font-display text-xl font-semibold leading-tight">{pregunta.pregunta}</p>
             </div>
 
-            {pregunta.tipo === "opcion_multiple" && pregunta.opciones.length > 0 ? (
+            {pregunta.opciones.length > 0 ? (
               <div className="grid grid-cols-1 gap-2">
                 {pregunta.opciones.map((op, i) => {
                   const seleccionada = respuestaLocal === op;
