@@ -30,7 +30,7 @@ export default defineTool({
         opciones: input.opciones ?? [],
         explicacion: input.explicacion ?? null,
         fuente: input.fuente ?? "MCP",
-        origen: "mcp",
+        origen: "manual",
       })
       .select("id,pregunta,categoria,nivel,tipo")
       .single();
