@@ -251,17 +251,39 @@ export const estadoSala = createServerFn({ method: "GET" })
         .eq("id", preguntaId)
         .maybeSingle();
       if (p) {
+        let opciones = Array.isArray(p.opciones) ? (p.opciones as string[]).map(String) : [];
+        if (opciones.length < 2) {
+          // Toda pregunta se presenta como opción múltiple: se generan distractores
+          // tomando respuestas de otras preguntas (misma categoría primero).
+          const { data: mismos } = await supabaseAdmin
+            .from("preguntas")
+            .select("respuesta")
+            .eq("categoria", p.categoria)
+            .neq("id", p.id)
+            .limit(300);
+          let candidatos = (mismos ?? []).map((r) => String(r.respuesta));
+          if (candidatos.length < 3) {
+            const { data: otros } = await supabaseAdmin
+              .from("preguntas")
+              .select("respuesta")
+              .neq("id", p.id)
+              .limit(300);
+            candidatos = candidatos.concat((otros ?? []).map((r) => String(r.respuesta)));
+          }
+          opciones = construirOpciones(p.respuesta, candidatos, `${sala.id}:${p.id}`);
+        }
         pregunta = {
           id: p.id,
           pregunta: p.pregunta,
-          tipo: p.tipo,
+          tipo: opciones.length > 1 ? "opcion_multiple" : p.tipo,
           categoria: p.categoria,
           nivel: p.nivel,
-          opciones: Array.isArray(p.opciones) ? (p.opciones as string[]) : [],
+          opciones,
           respuesta: sala.estado === "revelada" ? p.respuesta : null,
           explicacion: sala.estado === "revelada" ? p.explicacion : null,
         };
       }
+
       if (data.jugador_id) {
         const { data: r } = await supabaseAdmin
           .from("sala_respuestas")
