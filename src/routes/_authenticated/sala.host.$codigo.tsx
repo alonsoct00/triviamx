@@ -3,8 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import QRCode from "qrcode";
 import { AppShell } from "@/components/AppShell";
-import { estadoSala, iniciarSala, revelarSala, siguienteSala, cerrarSala } from "@/lib/sala.functions";
-import { ArrowLeft, Copy, Play, SkipForward, Eye, Square, Trophy, Share2, QrCode } from "lucide-react";
+import { estadoSala, iniciarSala, revelarSala, siguienteSala, cerrarSala, reiniciarSala } from "@/lib/sala.functions";
+import { ArrowLeft, Copy, Play, SkipForward, Eye, Square, Trophy, Share2, QrCode, RotateCcw, Shuffle } from "lucide-react";
+
 
 
 export const Route = createFileRoute("/_authenticated/sala/host/$codigo")({
@@ -188,6 +189,27 @@ function SalaHost() {
             <SkipForward className="size-4" /> Siguiente pregunta
           </button>
         )}
+        {sala.estado === "finalizada" && (
+          <>
+            <button
+              disabled={busy}
+              onClick={() => accion(() => reiniciarSala({ data: { codigo } }))}
+              className="col-span-2 flex items-center justify-center gap-2 rounded-xl bg-lime-400 px-4 py-3 font-bold uppercase text-black disabled:opacity-40"
+            >
+              <RotateCcw className="size-4" /> Reiniciar con los mismos jugadores
+            </button>
+            <button
+              disabled={busy}
+              onClick={() => accion(() => reiniciarSala({ data: { codigo, nuevasPreguntas: true } }))}
+              className="col-span-2 flex items-center justify-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-2.5 text-xs font-bold uppercase text-zinc-200 disabled:opacity-40"
+            >
+              <Shuffle className="size-4" /> Reiniciar con preguntas nuevas
+            </button>
+            <p className="col-span-2 text-center text-[11px] text-zinc-500">
+              Se conservan los {jugadores.length} jugadores y sus marcadores vuelven a cero.
+            </p>
+          </>
+        )}
         {sala.estado !== "finalizada" && (
           <button
             disabled={busy}
@@ -198,6 +220,7 @@ function SalaHost() {
           </button>
         )}
       </div>
+
 
       <section>
         <h2 className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400">

@@ -175,6 +175,55 @@ export const cerrarSala = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
+// Reinicia una sala conservando a los mismos jugadores
+export const reiniciarSala = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((i: { codigo: string; nuevasPreguntas?: boolean }) => i)
+  .handler(async ({ data, context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const sala = await asertarHost(supabaseAdmin, data.codigo, context.userId);
+
+    let preguntaIds: string[] = sala.pregunta_ids ?? [];
+    if (data.nuevasPreguntas) {
+      let q = supabaseAdmin.from("preguntas").select("id");
+      if (sala.categoria) q = q.eq("categoria", sala.categoria);
+      if (sala.nivel) q = q.eq("nivel", sala.nivel);
+      let { data: rows } = await q.limit(2000);
+      if (!rows || rows.length < sala.cantidad) {
+        const { data: todos } = await supabaseAdmin.from("preguntas").select("id").limit(2000);
+        rows = todos ?? rows ?? [];
+      }
+      const arr = [...rows];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      const nuevos = arr.slice(0, sala.cantidad).map((r) => r.id);
+      if (nuevos.length) preguntaIds = nuevos;
+    }
+
+    // Limpiar respuestas y marcadores, conservando a los jugadores
+    await supabaseAdmin.from("sala_respuestas").delete().eq("sala_id", sala.id);
+    await supabaseAdmin
+      .from("sala_jugadores")
+      .update({ puntos: 0, correctas: 0, incorrectas: 0 })
+      .eq("sala_id", sala.id);
+
+    const { error } = await supabaseAdmin
+      .from("salas")
+      .update({
+        estado: "esperando",
+        orden_actual: 0,
+        pregunta_started_at: null,
+        pregunta_ids: preguntaIds,
+        cantidad: preguntaIds.length,
+      })
+      .eq("id", sala.id);
+    if (error) throw new Error(error.message);
+    return { ok: true, cantidad: preguntaIds.length };
+  });
+
+
 // ------- Public actions (no auth) -------
 
 export const buscarSala = createServerFn({ method: "GET" })
