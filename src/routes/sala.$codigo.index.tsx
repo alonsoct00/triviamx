@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { buscarSala, unirseSala } from "@/lib/sala.functions";
 import { Users } from "lucide-react";
 
-export const Route = createFileRoute("/sala/$codigo")({
+export const Route = createFileRoute("/sala/$codigo/")({
   component: JoinSala,
   head: () => ({
     meta: [
