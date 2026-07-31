@@ -3,8 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import QRCode from "qrcode";
 import { AppShell } from "@/components/AppShell";
-import { estadoSala, iniciarSala, revelarSala, siguienteSala, cerrarSala } from "@/lib/sala.functions";
-import { ArrowLeft, Copy, Play, SkipForward, Eye, Square, Trophy, Share2, QrCode } from "lucide-react";
+import { estadoSala, iniciarSala, revelarSala, siguienteSala, cerrarSala, reiniciarSala } from "@/lib/sala.functions";
+import { ArrowLeft, Copy, Play, SkipForward, Eye, Square, Trophy, Share2, QrCode, RotateCcw, Shuffle } from "lucide-react";
+
 
 
 export const Route = createFileRoute("/_authenticated/sala/host/$codigo")({
