@@ -15,6 +15,7 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedVozAltaRouteImport } from './routes/_authenticated/voz-alta'
 import { Route as AuthenticatedSincronizarRouteImport } from './routes/_authenticated/sincronizar'
 import { Route as AuthenticatedImportarRouteImport } from './routes/_authenticated/importar'
 import { Route as AuthenticatedIaRouteImport } from './routes/_authenticated/ia'
@@ -61,6 +62,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedVozAltaRoute = AuthenticatedVozAltaRouteImport.update({
+  id: '/voz-alta',
+  path: '/voz-alta',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedSincronizarRoute =
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/ia': typeof AuthenticatedIaRoute
   '/importar': typeof AuthenticatedImportarRoute
   '/sincronizar': typeof AuthenticatedSincronizarRoute
+  '/voz-alta': typeof AuthenticatedVozAltaRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/partida/jugar': typeof AuthenticatedPartidaJugarRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByTo {
   '/ia': typeof AuthenticatedIaRoute
   '/importar': typeof AuthenticatedImportarRoute
   '/sincronizar': typeof AuthenticatedSincronizarRoute
+  '/voz-alta': typeof AuthenticatedVozAltaRoute
   '/': typeof AuthenticatedIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -229,6 +237,7 @@ export interface FileRoutesById {
   '/_authenticated/ia': typeof AuthenticatedIaRoute
   '/_authenticated/importar': typeof AuthenticatedImportarRoute
   '/_authenticated/sincronizar': typeof AuthenticatedSincronizarRoute
+  '/_authenticated/voz-alta': typeof AuthenticatedVozAltaRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -257,6 +266,7 @@ export interface FileRouteTypes {
     | '/ia'
     | '/importar'
     | '/sincronizar'
+    | '/voz-alta'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/partida/jugar'
@@ -281,6 +291,7 @@ export interface FileRouteTypes {
     | '/ia'
     | '/importar'
     | '/sincronizar'
+    | '/voz-alta'
     | '/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
@@ -307,6 +318,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ia'
     | '/_authenticated/importar'
     | '/_authenticated/sincronizar'
+    | '/_authenticated/voz-alta'
     | '/_authenticated/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
@@ -374,6 +386,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/voz-alta': {
+      id: '/_authenticated/voz-alta'
+      path: '/voz-alta'
+      fullPath: '/voz-alta'
+      preLoaderRoute: typeof AuthenticatedVozAltaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/sincronizar': {
@@ -514,6 +533,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIaRoute: typeof AuthenticatedIaRoute
   AuthenticatedImportarRoute: typeof AuthenticatedImportarRoute
   AuthenticatedSincronizarRoute: typeof AuthenticatedSincronizarRoute
+  AuthenticatedVozAltaRoute: typeof AuthenticatedVozAltaRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedPartidaJugarRoute: typeof AuthenticatedPartidaJugarRoute
   AuthenticatedPartidaNuevaRoute: typeof AuthenticatedPartidaNuevaRoute
@@ -530,6 +550,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIaRoute: AuthenticatedIaRoute,
   AuthenticatedImportarRoute: AuthenticatedImportarRoute,
   AuthenticatedSincronizarRoute: AuthenticatedSincronizarRoute,
+  AuthenticatedVozAltaRoute: AuthenticatedVozAltaRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedPartidaJugarRoute: AuthenticatedPartidaJugarRoute,
   AuthenticatedPartidaNuevaRoute: AuthenticatedPartidaNuevaRoute,
