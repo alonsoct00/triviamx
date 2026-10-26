@@ -9,45 +9,34 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
-import { Route as AuthenticatedVozAltaRouteImport } from './routes/_authenticated/voz-alta'
-import { Route as AuthenticatedSincronizarRouteImport } from './routes/_authenticated/sincronizar'
-import { Route as AuthenticatedImportarRouteImport } from './routes/_authenticated/importar'
-import { Route as AuthenticatedIaRouteImport } from './routes/_authenticated/ia'
-import { Route as AuthenticatedHistorialRouteImport } from './routes/_authenticated/historial'
-import { Route as AuthenticatedEstadisticasRouteImport } from './routes/_authenticated/estadisticas'
-import { Route as AuthenticatedCuentaRouteImport } from './routes/_authenticated/cuenta'
-import { Route as AuthenticatedBancoRouteImport } from './routes/_authenticated/banco'
-import { Route as AuthenticatedAjustesRouteImport } from './routes/_authenticated/ajustes'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedAjustesRouteImport } from './routes/_authenticated/ajustes'
+import { Route as AuthenticatedBancoRouteImport } from './routes/_authenticated/banco'
+import { Route as AuthenticatedCuentaRouteImport } from './routes/_authenticated/cuenta'
+import { Route as AuthenticatedEstadisticasRouteImport } from './routes/_authenticated/estadisticas'
+import { Route as AuthenticatedHistorialRouteImport } from './routes/_authenticated/historial'
+import { Route as AuthenticatedIaRouteImport } from './routes/_authenticated/ia'
+import { Route as AuthenticatedImportarRouteImport } from './routes/_authenticated/importar'
+import { Route as AuthenticatedSincronizarRouteImport } from './routes/_authenticated/sincronizar'
+import { Route as AuthenticatedVozAltaRouteImport } from './routes/_authenticated/voz-alta'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as AuthenticatedPartidaJugarRouteImport } from './routes/_authenticated/partida.jugar'
+import { Route as AuthenticatedPartidaNuevaRouteImport } from './routes/_authenticated/partida.nueva'
+import { Route as AuthenticatedSalaNuevaRouteImport } from './routes/_authenticated/sala.nueva'
 import { Route as SalaCodigoIndexRouteImport } from './routes/sala.$codigo.index'
 import { Route as SalaCodigoJugarRouteImport } from './routes/sala.$codigo.jugar'
-import { Route as AuthenticatedSalaNuevaRouteImport } from './routes/_authenticated/sala.nueva'
-import { Route as AuthenticatedPartidaNuevaRouteImport } from './routes/_authenticated/partida.nueva'
-import { Route as AuthenticatedPartidaJugarRouteImport } from './routes/_authenticated/partida.jugar'
-import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
-import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as AuthenticatedSalaHostCodigoRouteImport } from './routes/_authenticated/sala.host.$codigo'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -55,39 +44,51 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedVozAltaRoute = AuthenticatedVozAltaRouteImport.update({
-  id: '/voz-alta',
-  path: '/voz-alta',
+const AuthenticatedAjustesRoute = AuthenticatedAjustesRouteImport.update({
+  id: '/ajustes',
+  path: '/ajustes',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedSincronizarRoute =
-  AuthenticatedSincronizarRouteImport.update({
-    id: '/sincronizar',
-    path: '/sincronizar',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedImportarRoute = AuthenticatedImportarRouteImport.update({
-  id: '/importar',
-  path: '/importar',
+const AuthenticatedBancoRoute = AuthenticatedBancoRouteImport.update({
+  id: '/banco',
+  path: '/banco',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedIaRoute = AuthenticatedIaRouteImport.update({
-  id: '/ia',
-  path: '/ia',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedHistorialRoute = AuthenticatedHistorialRouteImport.update({
-  id: '/historial',
-  path: '/historial',
+const AuthenticatedCuentaRoute = AuthenticatedCuentaRouteImport.update({
+  id: '/cuenta',
+  path: '/cuenta',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedEstadisticasRoute =
@@ -96,33 +97,60 @@ const AuthenticatedEstadisticasRoute =
     path: '/estadisticas',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedCuentaRoute = AuthenticatedCuentaRouteImport.update({
-  id: '/cuenta',
-  path: '/cuenta',
+const AuthenticatedHistorialRoute = AuthenticatedHistorialRouteImport.update({
+  id: '/historial',
+  path: '/historial',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedBancoRoute = AuthenticatedBancoRouteImport.update({
-  id: '/banco',
-  path: '/banco',
+const AuthenticatedIaRoute = AuthenticatedIaRouteImport.update({
+  id: '/ia',
+  path: '/ia',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAjustesRoute = AuthenticatedAjustesRouteImport.update({
-  id: '/ajustes',
-  path: '/ajustes',
+const AuthenticatedImportarRoute = AuthenticatedImportarRouteImport.update({
+  id: '/importar',
+  path: '/importar',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
+const AuthenticatedSincronizarRoute =
+  AuthenticatedSincronizarRouteImport.update({
+    id: '/sincronizar',
+    path: '/sincronizar',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedVozAltaRoute = AuthenticatedVozAltaRouteImport.update({
+  id: '/voz-alta',
+  path: '/voz-alta',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
+const AuthenticatedPartidaJugarRoute =
+  AuthenticatedPartidaJugarRouteImport.update({
+    id: '/partida/jugar',
+    path: '/partida/jugar',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedPartidaNuevaRoute =
+  AuthenticatedPartidaNuevaRouteImport.update({
+    id: '/partida/nueva',
+    path: '/partida/nueva',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSalaNuevaRoute = AuthenticatedSalaNuevaRouteImport.update({
+  id: '/sala/nueva',
+  path: '/sala/nueva',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const SalaCodigoIndexRoute = SalaCodigoIndexRouteImport.update({
   id: '/sala/$codigo/',
   path: '/sala/$codigo/',
@@ -131,34 +159,6 @@ const SalaCodigoIndexRoute = SalaCodigoIndexRouteImport.update({
 const SalaCodigoJugarRoute = SalaCodigoJugarRouteImport.update({
   id: '/sala/$codigo/jugar',
   path: '/sala/$codigo/jugar',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedSalaNuevaRoute = AuthenticatedSalaNuevaRouteImport.update({
-  id: '/sala/nueva',
-  path: '/sala/nueva',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedPartidaNuevaRoute =
-  AuthenticatedPartidaNuevaRouteImport.update({
-    id: '/partida/nueva',
-    path: '/partida/nueva',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedPartidaJugarRoute =
-  AuthenticatedPartidaJugarRouteImport.update({
-    id: '/partida/jugar',
-    path: '/partida/jugar',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const Char91DotmcpChar93InvokeToolToolRoute =
-  Char91DotmcpChar93InvokeToolToolRouteImport.update({
-    id: '/.mcp/invoke-tool/$tool',
-    path: '/.mcp/invoke-tool/$tool',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedSalaHostCodigoRoute =
@@ -346,25 +346,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -374,11 +360,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/': {
@@ -388,53 +402,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/voz-alta': {
-      id: '/_authenticated/voz-alta'
-      path: '/voz-alta'
-      fullPath: '/voz-alta'
-      preLoaderRoute: typeof AuthenticatedVozAltaRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/sincronizar': {
-      id: '/_authenticated/sincronizar'
-      path: '/sincronizar'
-      fullPath: '/sincronizar'
-      preLoaderRoute: typeof AuthenticatedSincronizarRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/importar': {
-      id: '/_authenticated/importar'
-      path: '/importar'
-      fullPath: '/importar'
-      preLoaderRoute: typeof AuthenticatedImportarRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/ia': {
-      id: '/_authenticated/ia'
-      path: '/ia'
-      fullPath: '/ia'
-      preLoaderRoute: typeof AuthenticatedIaRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/historial': {
-      id: '/_authenticated/historial'
-      path: '/historial'
-      fullPath: '/historial'
-      preLoaderRoute: typeof AuthenticatedHistorialRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/estadisticas': {
-      id: '/_authenticated/estadisticas'
-      path: '/estadisticas'
-      fullPath: '/estadisticas'
-      preLoaderRoute: typeof AuthenticatedEstadisticasRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/cuenta': {
-      id: '/_authenticated/cuenta'
-      path: '/cuenta'
-      fullPath: '/cuenta'
-      preLoaderRoute: typeof AuthenticatedCuentaRouteImport
+    '/_authenticated/ajustes': {
+      id: '/_authenticated/ajustes'
+      path: '/ajustes'
+      fullPath: '/ajustes'
+      preLoaderRoute: typeof AuthenticatedAjustesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/banco': {
@@ -444,26 +416,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBancoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/ajustes': {
-      id: '/_authenticated/ajustes'
-      path: '/ajustes'
-      fullPath: '/ajustes'
-      preLoaderRoute: typeof AuthenticatedAjustesRouteImport
+    '/_authenticated/cuenta': {
+      id: '/_authenticated/cuenta'
+      path: '/cuenta'
+      fullPath: '/cuenta'
+      preLoaderRoute: typeof AuthenticatedCuentaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/_authenticated/estadisticas': {
+      id: '/_authenticated/estadisticas'
+      path: '/estadisticas'
+      fullPath: '/estadisticas'
+      preLoaderRoute: typeof AuthenticatedEstadisticasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/historial': {
+      id: '/_authenticated/historial'
+      path: '/historial'
+      fullPath: '/historial'
+      preLoaderRoute: typeof AuthenticatedHistorialRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia': {
+      id: '/_authenticated/ia'
+      path: '/ia'
+      fullPath: '/ia'
+      preLoaderRoute: typeof AuthenticatedIaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/importar': {
+      id: '/_authenticated/importar'
+      path: '/importar'
+      fullPath: '/importar'
+      preLoaderRoute: typeof AuthenticatedImportarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sincronizar': {
+      id: '/_authenticated/sincronizar'
+      path: '/sincronizar'
+      fullPath: '/sincronizar'
+      preLoaderRoute: typeof AuthenticatedSincronizarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/voz-alta': {
+      id: '/_authenticated/voz-alta'
+      path: '/voz-alta'
+      fullPath: '/voz-alta'
+      preLoaderRoute: typeof AuthenticatedVozAltaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.mcp/list-tools': {
-      id: '/.mcp/list-tools'
-      path: '/.mcp/list-tools'
-      fullPath: '/.mcp/list-tools'
-      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/partida/jugar': {
+      id: '/_authenticated/partida/jugar'
+      path: '/partida/jugar'
+      fullPath: '/partida/jugar'
+      preLoaderRoute: typeof AuthenticatedPartidaJugarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/partida/nueva': {
+      id: '/_authenticated/partida/nueva'
+      path: '/partida/nueva'
+      fullPath: '/partida/nueva'
+      preLoaderRoute: typeof AuthenticatedPartidaNuevaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sala/nueva': {
+      id: '/_authenticated/sala/nueva'
+      path: '/sala/nueva'
+      fullPath: '/sala/nueva'
+      preLoaderRoute: typeof AuthenticatedSalaNuevaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/sala/$codigo/': {
       id: '/sala/$codigo/'
@@ -477,41 +512,6 @@ declare module '@tanstack/react-router' {
       path: '/sala/$codigo/jugar'
       fullPath: '/sala/$codigo/jugar'
       preLoaderRoute: typeof SalaCodigoJugarRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/sala/nueva': {
-      id: '/_authenticated/sala/nueva'
-      path: '/sala/nueva'
-      fullPath: '/sala/nueva'
-      preLoaderRoute: typeof AuthenticatedSalaNuevaRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/partida/nueva': {
-      id: '/_authenticated/partida/nueva'
-      path: '/partida/nueva'
-      fullPath: '/partida/nueva'
-      preLoaderRoute: typeof AuthenticatedPartidaNuevaRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/partida/jugar': {
-      id: '/_authenticated/partida/jugar'
-      path: '/partida/jugar'
-      fullPath: '/partida/jugar'
-      preLoaderRoute: typeof AuthenticatedPartidaJugarRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/.mcp/invoke-tool/$tool': {
-      id: '/.mcp/invoke-tool/$tool'
-      path: '/.mcp/invoke-tool/$tool'
-      fullPath: '/.mcp/invoke-tool/$tool'
-      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/.lovable/oauth/consent': {
-      id: '/.lovable/oauth/consent'
-      path: '/.lovable/oauth/consent'
-      fullPath: '/.lovable/oauth/consent'
-      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/sala/host/$codigo': {
