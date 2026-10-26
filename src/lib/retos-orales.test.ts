@@ -10,7 +10,7 @@ describe("retos orales solicitados", () => {
     ["terror", undefined, ["Chucky"]],
     ["marcas-t", "T", ["Timberland", "Toyota", "Tommy", "Tonayán"]],
     ["frutas-s", "S", ["Sandía"]],
-  ] as const;
+  ];
   for (const [id, letra, ejemplos] of reglas) {
     test(id, () => {
       const reto = RETOS_ORALES.find((item) => item.id === id);
