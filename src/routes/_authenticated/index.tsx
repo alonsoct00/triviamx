@@ -1,13 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Play, Library, Sparkles, History, BarChart3, Settings, RefreshCw, Globe, Users } from "lucide-react";
+import { Play, Library, Sparkles, History, BarChart3, Settings, RefreshCw, Globe, Users, AudioLines } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { contarPreguntas } from "@/lib/preguntas.functions";
 
 export const Route = createFileRoute("/_authenticated/")({
   component: Home,
   head: () => ({
-    meta: [{ title: "Trivia MX — Panel del Moderador" }],
+    meta: [
+      { title: "Trivia MX — Panel del Moderador" },
+      { name: "description", content: "Dirige partidas de trivia, juegos en grupo y retos en voz alta desde el panel del moderador de Trivia MX." },
+      { property: "og:title", content: "Trivia MX — Panel del Moderador" },
+      { property: "og:description", content: "Tus preguntas, partidas y retos orales en un solo panel." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
   }),
 });
 
@@ -56,6 +63,7 @@ function Home() {
       </Link>
 
       <div className="grid grid-cols-2 gap-3">
+        <Tile to="/voz-alta" icon={<AudioLines className="size-5" />} label="En voz alta" hint="Temas y letras" accent="text-primary" />
         <Tile to="/banco" icon={<Library className="size-5" />} label="Banco de preguntas" hint="Filtra y edita" />
         <Tile
           to="/ia"

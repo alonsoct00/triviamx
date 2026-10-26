@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep the moderator's oral-category game in its own authenticated route with browser-local round controls and a shared preset module; it must not change solo trivia or guest-room gameplay.
